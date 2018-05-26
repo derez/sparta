@@ -1,5 +1,10 @@
+Current instrumented fork for my personal experimentation.. Please do not use.. 
+
+Use https://github.com/SECFORCE/sparta..
+
+
 SPARTA v1.0.3 BETA (http://sparta.secforce.com)
-==
+===
 
 Authors:
 ----
