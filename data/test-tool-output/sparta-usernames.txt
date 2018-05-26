@@ -1,0 +1,8 @@
+bob                 
+Guest               
+IUSR_BOB            
+IWAM_BOB            
+Administrator       
+HelpAssistant       
+SUPPORT_388945a0
+ftp

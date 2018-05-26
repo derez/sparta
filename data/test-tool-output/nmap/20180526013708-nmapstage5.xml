@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.70 scan initiated Sat May 26 01:37:08 2018 as: nmap -T4 -sV -n -sSU -p T:30000-65535 -oA /tmp/sparta-5jIRRl-running/nmap/20180526013708-nmapstage5 10.11.1.13 -->
+<nmaprun scanner="nmap" args="nmap -T4 -sV -n -sSU -p T:30000-65535 -oA /tmp/sparta-5jIRRl-running/nmap/20180526013708-nmapstage5 10.11.1.13" start="1527313028" startstr="Sat May 26 01:37:08 2018" version="7.70" xmloutputversion="1.04">
+<scaninfo type="syn" protocol="tcp" numservices="35536" services="30000-65535"/>
+<scaninfo type="udp" protocol="udp" numservices="0" services=""/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1527313028" endtime="1527318563"><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="10.11.1.13" addrtype="ipv4"/>
+<address addr="00:50:56:B8:32:57" addrtype="mac" vendor="VMware"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="filtered" count="35536">
+<extrareasons reason="no-responses" count="35536"/>
+</extraports>
+</ports>
+<times srtt="155621" rttvar="155621" to="778105"/>
+</host>
+<runstats><finished time="1527318564" timestr="Sat May 26 03:09:24 2018" elapsed="5535.85" summary="Nmap done at Sat May 26 03:09:24 2018; 1 IP address (1 host up) scanned in 5535.85 seconds" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

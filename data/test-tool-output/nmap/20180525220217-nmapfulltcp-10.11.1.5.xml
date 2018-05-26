@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.70 scan initiated Fri May 25 22:02:17 2018 as: nmap -Pn -sV -sC -O -p- -T4 -vvvvv -oA /tmp/sparta-BP8eAy-running/nmap/20180525220217-nmapfulltcp-10.11.1.5 10.11.1.5 -->
+<nmaprun scanner="nmap" args="nmap -Pn -sV -sC -O -p- -T4 -vvvvv -oA /tmp/sparta-BP8eAy-running/nmap/20180525220217-nmapfulltcp-10.11.1.5 10.11.1.5" start="1527300137" startstr="Fri May 25 22:02:17 2018" version="7.70" xmloutputversion="1.04">
+<scaninfo type="syn" protocol="tcp" numservices="65535" services="1-65535"/>
+<verbose level="5"/>
+<debugging level="0"/>
+<taskbegin task="NSE" time="1527300138"/>
+<taskend task="NSE" time="1527300138"/>
+<taskbegin task="NSE" time="1527300138"/>
+<taskend task="NSE" time="1527300138"/>
+<taskbegin task="ARP Ping Scan" time="1527300138"/>
+<taskend task="ARP Ping Scan" time="1527300138" extrainfo="1 total hosts"/>
+<taskbegin task="Parallel DNS resolution of 1 host." time="1527300138"/>
+<taskend task="Parallel DNS resolution of 1 host." time="1527300138"/>
+<taskbegin task="SYN Stealth Scan" time="1527300138"/>
+<taskprogress task="SYN Stealth Scan" time="1527300169" percent="15.64" remaining="168" etc="1527300336"/>
+<taskprogress task="SYN Stealth Scan" time="1527300199" percent="19.70" remaining="249" etc="1527300448"/>
+<taskprogress task="SYN Stealth Scan" time="1527300271" percent="36.36" remaining="233" etc="1527300504"/>
+<taskprogress task="SYN Stealth Scan" time="1527300307" percent="44.31" remaining="213" etc="1527300519"/>
+<taskprogress task="SYN Stealth Scan" time="1527300337" percent="51.02" remaining="192" etc="1527300528"/>
+<taskprogress task="SYN Stealth Scan" time="1527300367" percent="57.82" remaining="168" etc="1527300534"/>
+<taskprogress task="SYN Stealth Scan" time="1527300397" percent="66.08" remaining="133" etc="1527300530"/>
+<taskprogress task="SYN Stealth Scan" time="1527300427" percent="74.76" remaining="98" etc="1527300525"/>
+<taskprogress task="SYN Stealth Scan" time="1527300457" percent="82.11" remaining="70" etc="1527300526"/>
+<taskprogress task="SYN Stealth Scan" time="1527300487" percent="89.87" remaining="40" etc="1527300526"/>
+<taskend task="SYN Stealth Scan" time="1527300534" extrainfo="65535 total ports"/>
+<taskbegin task="Service scan" time="1527300534"/>
+<taskend task="Service scan" time="1527300554" extrainfo="5 services on 1 host"/>
+<taskbegin task="NSE" time="1527300556"/>
+<taskprogress task="NSE" time="1527300587" percent="99.85" remaining="1" etc="1527300587"/>
+<taskend task="NSE" time="1527300616"/>
+<taskbegin task="NSE" time="1527300616"/>
+<taskend task="NSE" time="1527300617"/>
+<host starttime="1527300138" endtime="1527300617"><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="10.11.1.5" addrtype="ipv4"/>
+<address addr="00:50:56:B8:2F:F5" addrtype="mac" vendor="VMware"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="closed" count="65530">
+<extrareasons reason="resets" count="65530"/>
+</extraports>
+<port protocol="tcp" portid="135"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="msrpc" product="Microsoft Windows RPC" ostype="Windows" method="probed" conf="10"><cpe>cpe:/o:microsoft:windows</cpe></service></port>
+<port protocol="tcp" portid="139"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="netbios-ssn" product="Microsoft Windows netbios-ssn" ostype="Windows" method="probed" conf="10"><cpe>cpe:/o:microsoft:windows</cpe></service></port>
+<port protocol="tcp" portid="445"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="microsoft-ds" product="Windows XP microsoft-ds" ostype="Windows XP" method="probed" conf="10"><cpe>cpe:/o:microsoft:windows_xp</cpe></service></port>
+<port protocol="tcp" portid="1025"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="msrpc" product="Microsoft Windows RPC" ostype="Windows" method="probed" conf="10"><cpe>cpe:/o:microsoft:windows</cpe></service></port>
+<port protocol="tcp" portid="3389"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="ms-wbt-server" servicefp="SF-Port3389-TCP:V=7.70%I=7%D=5/25%Time=5B08C1C2%P=x86_64-pc-linux-gnu%r(TerminalServerCookie,B,&quot;\x03\0\0\x0b\x06\xd0\0\0\x124\0&quot;);" method="table" conf="3"/></port>
+</ports>
+<os><portused state="open" proto="tcp" portid="135"/>
+<portused state="closed" proto="tcp" portid="1"/>
+<portused state="closed" proto="udp" portid="41572"/>
+<osmatch name="Microsoft Windows XP" accuracy="100" line="80173">
+<osclass type="general purpose" vendor="Microsoft" osfamily="Windows" osgen="XP" accuracy="100"><cpe>cpe:/o:microsoft:windows_xp</cpe></osclass>
+</osmatch>
+<osfingerprint fingerprint="OS:SCAN(V=7.70%E=4%D=5/25%OT=135%CT=1%CU=41572%PV=Y%DS=1%DC=D%G=Y%M=005056%&#xa;OS:TM=5B08C209%P=x86_64-pc-linux-gnu)SEQ(SP=89%GCD=1%ISR=9D%TI=I%II=I%SS=S%&#xa;OS:TS=0)OPS(O1=M529NW0NNT00NNS%O2=M529NW0NNT00NNS%O3=M529NW0NNT00%O4=M529NW&#xa;OS:0NNT00NNS%O5=M529NW0NNT00NNS%O6=M529NNT00NNS)WIN(W1=FAF0%W2=FAF0%W3=FAF0&#xa;OS:%W4=FAF0%W5=FAF0%W6=FAF0)ECN(R=Y%DF=Y%T=80%W=FAF0%O=M529NW0NNS%CC=N%Q=)T&#xa;OS:1(R=Y%DF=Y%T=80%S=O%A=S+%F=AS%RD=0%Q=)T2(R=N)T3(R=N)T4(R=N)T5(R=Y%DF=N%T&#xa;OS:=80%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)T6(R=N)T7(R=N)U1(R=Y%DF=N%T=80%IPL=38%U&#xa;OS:N=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=S%T=80%CD=Z)&#xa;"/>
+</os>
+<distance value="1"/>
+<tcpsequence index="137" difficulty="Good luck!" values="4D824DD6,4D833305,4D848CFC,4D85ED03,4D873ADE,4D8847FE"/>
+<ipidsequence class="Incremental" values="B8D3,B8D4,B8D5,B8D6,B8D7,B8D8"/>
+<tcptssequence class="zero timestamp" values="0,0,0,0,0,0"/>
+<hostscript><script id="clock-skew" output="mean: -39m44s, deviation: 42m24s, median: -1h09m44s"><elem key="stddev">2544</elem>
+<elem key="mean">-2384</elem>
+<elem key="median">-4184</elem>
+</script><script id="nbstat" output="NetBIOS name: ALICE, NetBIOS user: &lt;unknown&gt;, NetBIOS MAC: 00:50:56:b8:2f:f5 (VMware)&#xa;Names:&#xa;  ALICE&lt;00&gt;            Flags: &lt;unique&gt;&lt;active&gt;&#xa;  THINC&lt;00&gt;            Flags: &lt;group&gt;&lt;active&gt;&#xa;  ALICE&lt;03&gt;            Flags: &lt;unique&gt;&lt;active&gt;&#xa;  ALICE&lt;20&gt;            Flags: &lt;unique&gt;&lt;active&gt;&#xa;  THINC&lt;1e&gt;            Flags: &lt;group&gt;&lt;active&gt;&#xa;Statistics:&#xa;  00 50 56 b8 2f f5 00 00 00 00 00 00 00 00 00 00 00&#xa;  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00&#xa;  00 00 00 00 00 00 00 00 00 00 00 00 00 00"><table key="names">
+<table>
+<elem key="suffix">0</elem>
+<elem key="flags">1024</elem>
+<elem key="name">ALICE</elem>
+</table>
+<table>
+<elem key="suffix">0</elem>
+<elem key="flags">33792</elem>
+<elem key="name">THINC</elem>
+</table>
+<table>
+<elem key="suffix">3</elem>
+<elem key="flags">1024</elem>
+<elem key="name">ALICE</elem>
+</table>
+<table>
+<elem key="suffix">32</elem>
+<elem key="flags">1024</elem>
+<elem key="name">ALICE</elem>
+</table>
+<table>
+<elem key="suffix">30</elem>
+<elem key="flags">33792</elem>
+<elem key="name">THINC</elem>
+</table>
+</table>
+<elem key="server_name">ALICE</elem>
+<table key="statistics">
+<elem>00 50 56 b8 2f f5 00 00 00 00 00 00 00 00 00 00 00</elem>
+<elem>00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00</elem>
+<elem>00 00 00 00 00 00 00 00 00 00 00 00 00 00</elem>
+</table>
+<elem key="user">&lt;unknown&gt;</elem>
+<table key="mac">
+<elem key="address">00:50:56:b8:2f:f5</elem>
+<elem key="manuf">VMware</elem>
+</table>
+</script><script id="p2p-conficker" output="&#xa;  Checking for Conficker.C or higher...&#xa;  Check 1 (port 36286/tcp): CLEAN (Couldn&apos;t connect)&#xa;  Check 2 (port 35896/tcp): CLEAN (Couldn&apos;t connect)&#xa;  Check 3 (port 19156/udp): CLEAN (Failed to receive data)&#xa;  Check 4 (port 55739/udp): CLEAN (Failed to receive data)&#xa;  0/4 checks are positive: Host is CLEAN or ports are blocked&#xa;"/><script id="smb-os-discovery" output="&#xa;  OS: Windows XP (Windows 2000 LAN Manager)&#xa;  OS CPE: cpe:/o:microsoft:windows_xp::-&#xa;  Computer name: alice&#xa;  NetBIOS computer name: ALICE\x00&#xa;  Domain name: thinc.local&#xa;  Forest name: thinc.local&#xa;  FQDN: alice.thinc.local&#xa;  System time: 2018-05-26T02:59:32+01:00&#xa;"><elem key="os">Windows 5.1</elem>
+<elem key="lanmanager">Windows 2000 LAN Manager</elem>
+<elem key="server">ALICE\x00</elem>
+<elem key="date">2018-05-26T02:59:32+01:00</elem>
+<elem key="fqdn">alice.thinc.local</elem>
+<elem key="domain_dns">thinc.local</elem>
+<elem key="forest_dns">thinc.local</elem>
+<elem key="workgroup">THINC\x00</elem>
+<elem key="cpe">cpe:/o:microsoft:windows_xp::-</elem>
+</script><script id="smb-security-mode" output="&#xa;  account_used: guest&#xa;  authentication_level: user&#xa;  challenge_response: supported&#xa;  message_signing: disabled (dangerous, but default)"><elem key="account_used">guest</elem>
+<elem key="authentication_level">user</elem>
+<elem key="challenge_response">supported</elem>
+<elem key="message_signing">disabled</elem>
+</script><script id="smb2-security-mode" output="Couldn&apos;t establish a SMBv2 connection."/><script id="smb2-time" output="Protocol negotiation failed (SMB2)"/></hostscript><times srtt="156413" rttvar="1188" to="161165"/>
+</host>
+<taskbegin task="NSE" time="1527300617"/>
+<taskend task="NSE" time="1527300617"/>
+<taskbegin task="NSE" time="1527300617"/>
+<taskend task="NSE" time="1527300617"/>
+<runstats><finished time="1527300617" timestr="Fri May 25 22:10:17 2018" elapsed="479.35" summary="Nmap done at Fri May 25 22:10:17 2018; 1 IP address (1 host up) scanned in 479.35 seconds" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

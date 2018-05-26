@@ -12,6 +12,9 @@ import logging
 import Session, Host, Script
 import xml.dom.minidom
 
+import logging
+logger = logging.getLogger(__name__)
+
 class Parser:
 
 	'''Parser class, parse a xml format nmap report'''
@@ -24,9 +27,9 @@ class Parser:
 			for host_node in self.__dom.getElementsByTagName('host'):
 				__host =  Host.Host(host_node)
 				self.__hosts[__host.ip] = __host
-		except Exception as ex:
-			print "\t[-] Parser error! Invalid nmap file!"
-			#logging.error(ex)
+				
+		except Exception as err:
+			logging.error('[-] Parser error! Invalid nmap file! - {!r}'.format(err))
 			raise
 
 	def get_session( self ):
@@ -101,7 +104,7 @@ if __name__ == '__main__':
 
 	parser = Parser( 'a-full.xml' )
 
-	print '\nscan session:'
+	logger.info('\nscan session:')
 	session = parser.get_session()
 	print "\tstart time:\t" + session.start_time
 	print "\tstop time:\t" + session.finish_time
@@ -113,7 +116,7 @@ if __name__ == '__main__':
 
 	for h in parser.all_hosts():
 
-		print 'host ' +h.ip + ' is ' + h.status
+		logger.info('host ' +h.ip + ' is ' + h.status)
 
 		for port in h.get_ports( 'tcp', 'open' ):
 			print "\t---------------------------------------------------"	

@@ -6,6 +6,9 @@ __version__=  '0.2'
 import sys
 import xml.dom.minidom
 
+import logging
+logger = logging.getLogger(__name__)
+
 class Session:
     def __init__( self, SessionHT ):
         self.start_time = SessionHT.get('start_time', '')
@@ -25,10 +28,10 @@ if __name__ == '__main__':
 
     s = Session( MySession )
 
-    print 'start_time:' + s.start_time
-    print 'finish_time:' + s.finish_time
-    print 'nmap_version:' + s.nmap_version
-    print 'nmap_args:' + s.scan_args
-    print 'total hosts:' + s.total_hosts
-    print 'up hosts:' + s.up_hosts
-    print 'down hosts:' + s.down_hosts
+    logger.info('start_time:' + s.start_time)
+    logger.info('finish_time:' + s.finish_time)
+    logger.info('nmap_version:' + s.nmap_version)
+    logger.info('nmap_args:' + s.scan_args)
+    logger.info('total hosts:' + s.total_hosts)
+    logger.info('up hosts:' + s.up_hosts)
+    logger.info('down hosts:' + s.down_hosts)

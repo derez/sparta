@@ -12,7 +12,10 @@ Copyright (c) 2014 SECFORCE (Antonio Quina and Leonidas Stavliotis)
 '''
 
 #from PyQt4 import QtCore, QtGui
-from ui.dialogs import *												# for the screenshots (image viewer)
+from ui.dialogs import *	
+
+import logging
+logger = logging.getLogger(__name__)											# for the screenshots (image viewer)
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8

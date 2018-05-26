@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.70 scan initiated Fri May 25 18:50:02 2018 as: nmap -Pn -sV -sC -vvvvv -p3389 -oA /tmp/sparta-YDx5Dw-running/nmap/20180525185002-nmap-10.11.1.13-3389 10.11.1.13 -->
+<nmaprun scanner="nmap" args="nmap -Pn -sV -sC -vvvvv -p3389 -oA /tmp/sparta-YDx5Dw-running/nmap/20180525185002-nmap-10.11.1.13-3389 10.11.1.13" start="1527288602" startstr="Fri May 25 18:50:02 2018" version="7.70" xmloutputversion="1.04">
+<scaninfo type="syn" protocol="tcp" numservices="1" services="3389"/>
+<verbose level="5"/>
+<debugging level="0"/>
+<taskbegin task="NSE" time="1527288603"/>
+<taskend task="NSE" time="1527288603"/>
+<taskbegin task="NSE" time="1527288603"/>
+<taskend task="NSE" time="1527288603"/>
+<taskbegin task="ARP Ping Scan" time="1527288603"/>
+<taskend task="ARP Ping Scan" time="1527288603" extrainfo="1 total hosts"/>
+<taskbegin task="Parallel DNS resolution of 1 host." time="1527288603"/>
+<taskend task="Parallel DNS resolution of 1 host." time="1527288603"/>
+<taskbegin task="SYN Stealth Scan" time="1527288603"/>
+<taskend task="SYN Stealth Scan" time="1527288603" extrainfo="1 total ports"/>
+<taskbegin task="Service scan" time="1527288603"/>
+<taskend task="Service scan" time="1527288626" extrainfo="1 service on 1 host"/>
+<taskbegin task="NSE" time="1527288626"/>
+<taskprogress task="NSE" time="1527288657" percent="99.31" remaining="1" etc="1527288657"/>
+<taskend task="NSE" time="1527288686"/>
+<taskbegin task="NSE" time="1527288686"/>
+<taskend task="NSE" time="1527288686"/>
+<host starttime="1527288603" endtime="1527288686"><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="10.11.1.13" addrtype="ipv4"/>
+<address addr="00:50:56:B8:32:57" addrtype="mac" vendor="VMware"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="3389"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="ms-wbt-server" servicefp="SF-Port3389-TCP:V=7.70%I=7%D=5/25%Time=5B089327%P=x86_64-pc-linux-gnu%r(TerminalServerCookie,B,&quot;\x03\0\0\x0b\x06\xd0\0\0\x124\0&quot;);" method="table" conf="3"/></port>
+</ports>
+<times srtt="157166" rttvar="118509" to="631202"/>
+</host>
+<taskbegin task="NSE" time="1527288686"/>
+<taskend task="NSE" time="1527288686"/>
+<taskbegin task="NSE" time="1527288686"/>
+<taskend task="NSE" time="1527288686"/>
+<runstats><finished time="1527288686" timestr="Fri May 25 18:51:26 2018" elapsed="83.73" summary="Nmap done at Fri May 25 18:51:26 2018; 1 IP address (1 host up) scanned in 83.73 seconds" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

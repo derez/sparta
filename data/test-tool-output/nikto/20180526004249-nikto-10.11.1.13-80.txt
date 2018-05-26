@@ -1,0 +1,16 @@
+- Nikto v2.1.6/2.1.5
++ Target Host: 10.11.1.13
++ Target Port: 80
++ GET The anti-clickjacking X-Frame-Options header is not present.
++ GET The X-XSS-Protection header is not defined. This header can hint to the user agent to protect against some forms of XSS
++ GET The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type
++ OPTIONS Retrieved dasl header: <DAV:sql>
++ OPTIONS Retrieved dav header: 1, 2
++ OPTIONS Allowed HTTP Methods: OPTIONS, TRACE, GET, HEAD, DELETE, PUT, POST, COPY, MOVE, MKCOL, PROPFIND, PROPPATCH, LOCK, UNLOCK, SEARCH 
++ OPTIONS Public HTTP Methods: OPTIONS, TRACE, GET, HEAD, DELETE, PUT, POST, COPY, MOVE, MKCOL, PROPFIND, PROPPATCH, LOCK, UNLOCK, SEARCH 
++ OPTIONS WebDAV enabled (UNLOCK PROPPATCH PROPFIND COPY LOCK SEARCH MKCOL listed as allowed)
++ OSVDB-877: TRACE HTTP TRACE method is active, suggesting the host is vulnerable to XST
++ OSVDB-877: TRACK HTTP TRACK method is active, suggesting the host is vulnerable to XST
++ OSVDB-3092: GET /scripts/: This might be interesting... possibly a system shell found.
++ GET Cookie ASPSESSIONIDQGGGQXRU created without the httponly flag
++ OSVDB-3092: GET /iishelp/iis/misc/default.asp: Default IIS page found.

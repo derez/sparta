@@ -18,6 +18,9 @@ import errno															# temporary for isHttpd
 import subprocess														# for screenshots with cutycapt
 import string															# for input validation
 
+import logging
+logger = logging.getLogger(__name__)
+
 # bubble sort algorithm that sorts an array (in place) based on the values in another array
 # the values in the array must be comparable and in the corresponding positions
 # used to sort objects by one of their attributes.
@@ -45,14 +48,15 @@ def isHttp(url):
 		req = urllib2.Request(url)
 		req.add_header('User-Agent', 'Mozilla/5.0 (X11; Linux x86_64; rv:22.0) Gecko/20100101 Firefox/22.0 Iceweasel/22.0')
 		r = urllib2.urlopen(req, timeout=10)
-		#print 'response code: ' + str(r.code)
-		#print 'response content: ' + str(r.read())
+		#logger.info('response code: ' + str(r.code))
+		#logger.info('response content: ' + str(r.read()))
 		return True
 		
-	except urllib2.HTTPError, e:
+	except urllib2.HTTPError as err:
+		logger.error('HTTPError: {!r}'.format(err))
 		reason = str(sys.exc_info()[1].reason)
-		# print reason
 		if reason == 'Unauthorized' or reason == 'Forbidden':
+    		logger.error('HTTPError reason {!s} so returned True'.format(reason))
 			return True
 		return False
 		
@@ -64,15 +68,16 @@ def isHttps(ip, port):
 		req = urllib2.Request('https://'+ip+':'+port)
 		req.add_header('User-Agent', 'Mozilla/5.0 (X11; Linux x86_64; rv:22.0) Gecko/20100101 Firefox/22.0 Iceweasel/22.0')
 		r = urllib2.urlopen(req, timeout=5)
-#		print '\nresponse code: ' + str(r.code)
-#		print '\nresponse content: ' + str(r.read())
+		logger.debug('response code: {!s}'.format(r.code))
+		logger.debug('response content: {!s}'.format(r.read()))
 		return True
 
-	except:	
+	except Exception as err:
+		logger.error('Error: {!r}'.format(err))		
 		reason = str(sys.exc_info()[1].reason)
-#		print reason
+		logger.info('Reason: {!s}'.format(reason))
 #		if 'Interrupted system call' in reason:
-#			print 'caught exception. retry?'
+#			logger.info('caught exception. retry?')
 			
 		if reason == 'Forbidden':
 			return True	
@@ -127,12 +132,11 @@ def checkHydraResults(output):
 		for line in results:
 			login = re.search('(login:[\s]*)([^\s]+)', line)
 			if login:
-				print 'Found username: ' + login.group(2)
+				logger.info('Found username: ' + login.group(2))
 				usernames.append(login.group(2))
 			password = re.search('(password:[\s]*)([^\s]+)', line)
 			if password:
-				#print 'Found password: ' + password.group(2)
-
+				#logger.info('Found password: ' + password.group(2))
 				passwords.append(password.group(2))	
 		return True, usernames, passwords								# returns the lists of found usernames and passwords
 	return False, [], []
@@ -144,7 +148,7 @@ def exportNmapToHTML(filename):
 		p.wait()
 	
 	except:
-		print '[-] Could not convert nmap XML to HTML. Try: apt-get install xsltproc'
+		logger.info('[-] Could not convert nmap XML to HTML. Try: apt-get install xsltproc')
 
 # this class is used for example to store found usernames/passwords	
 class Wordlist():
@@ -153,7 +157,7 @@ class Wordlist():
 		self.wordlist = []
 		with open(filename, 'a+') as f:									# open for appending + reading
 			self.wordlist = f.readlines()
-			print '[+] Wordlist was created/opened: ' + str(filename)
+			logger.info('[+] Wordlist was created/opened: {!s}'.format(filename))
 
 	def setFilename(self, filename):
 		self.filename = filename
@@ -161,10 +165,10 @@ class Wordlist():
 	# adds a word to the wordlist (without duplicates)	
 	def add(self, word):
 		with open(self.filename, 'a') as f:
-			if not word+'\n' in self.wordlist:
-				#print('[+] Adding '+word+' to the wordlist..')
-				self.wordlist.append(word+'\n')
-				f.write(word+'\n')
+			if word not in self.wordlist:
+				logger.debug('[+] Adding {!s} to the wordlist'.format(word))
+				self.wordlist.append(word)
+				f.writeline(word)
 
 # Custom QProcess class
 class MyQProcess(QProcess):
@@ -220,7 +224,7 @@ class BrowserOpener(QtCore.QThread):
 		for i in range(0, len(self.urls)):
 			try:
 				url = self.urls.pop(0)
-				print '[+] Opening url in browser: '+url
+				logger.info('[+] Opening url in browser: '+url)
 				if isHttps(url.split(':')[0],url.split(':')[1]):
 					webbrowser.open_new_tab('https://'+url)
 				else:
@@ -230,8 +234,8 @@ class BrowserOpener(QtCore.QThread):
 				else:
 					self.sleep(1)										# fixes bug when several calls to urllib occur too fast (interrupted system call)
 			
-			except:
-				print '\t[-] Problem while opening url in browser. Moving on..'
+			except Exception:
+				logger.warning('[-] Problem while opening url in browser. Moving on')
 				continue
 				
 		self.processing = False
@@ -257,7 +261,6 @@ class Screenshooter(QtCore.QThread):
 		self.outputfolder = screenshotsFolder
 
 	def run(self):
-		
 		while self.processing == True:
 			self.sleep(1)												# effectively a semaphore
 	
@@ -269,7 +272,7 @@ class Screenshooter(QtCore.QThread):
 				outputfile = getTimestamp()+'-screenshot-'+url.replace(':', '-')+'.png'
 				ip = url.split(':')[0]
 				port = url.split(':')[1]
-#				print '[+] Taking screenshot of '+url
+				logging.debug('[+] Taking screenshot: {!s}'.format(url))
 				# add to db
 				
 				if isHttps(ip,port):
@@ -278,7 +281,7 @@ class Screenshooter(QtCore.QThread):
 					self.save("http://"+url, ip, port, outputfile)
 
 			except:
-				print '\t[-] Unable to take the screenshot. Moving on..'
+				logger.warning('[-] Unable to take the screenshot. Moving on..')
 				continue				
 				
 		self.processing = False
@@ -286,12 +289,12 @@ class Screenshooter(QtCore.QThread):
 		if not len(self.urls) == 0:										# if meanwhile urls were added to the queue, start over unless we are in pause mode
 			self.run()
 
-		print '\t[+] Finished.'
+		logger.info('[+] Finished.')
 
 	def save(self, url, ip, port, outputfile):
-		print '[+] Saving screenshot as: '+str(outputfile)
+		logger.debug('[+] Saving screenshot as: {!s}'.format(outputfile))
 		command = "cutycapt --max-wait="+str(self.timeout)+" --url="+str(url)+"/ --out=\""+str(self.outputfolder)+"/"+str(outputfile)+"\""
-#		print command
+		logger.debug('Using {!s}'.format(command))
 		p = subprocess.Popen(command, shell=True)
 		p.wait()														# wait for command to finish
 		self.done.emit(ip,port,outputfile)								# send a signal to add the 'process' to the DB
@@ -323,25 +326,25 @@ class Filters():
 		self.keywords = keywords
 
 	def setKeywords(self, keywords):
-		print str(keywords)
+		logger.debug('{!s}'.format(keywords))
 		self.keywords = keywords
 
 	def getFilters(self):
 		return [self.up, self.down, self.checked, self.portopen, self.portfiltered, self.portclosed, self.tcp, self.udp, self.keywords]
 
 	def display(self):
-		print 'Filters are:'
-		print 'Show checked hosts: ' + str(self.checked)
-		print 'Show up hosts: ' + str(self.up)
-		print 'Show down hosts: ' + str(self.down)
-		print 'Show tcp: ' + str(self.tcp)
-		print 'Show udp: ' + str(self.udp)
-		print 'Show open ports: ' + str(self.portopen)
-		print 'Show closed ports: ' + str(self.portclosed)
-		print 'Show filtered ports: ' + str(self.portfiltered)
-		print 'Keyword search:'
+		logger.info('Filters are:')
+		logger.info('Show checked hosts: ' + str(self.checked))
+		logger.info('Show up hosts: ' + str(self.up))
+		logger.info('Show down hosts: ' + str(self.down))
+		logger.info('Show tcp: ' + str(self.tcp))
+		logger.info('Show udp: ' + str(self.udp))
+		logger.info('Show open ports: ' + str(self.portopen))
+		logger.info('Show closed ports: ' + str(self.portclosed))
+		logger.info('Show filtered ports: ' + str(self.portfiltered))
+		logger.info('Keyword search:')
 		for w in self.keywords:
-			print w
+			logger.info('    {!s}'.format(w))
 
 
 ### VALIDATION FUNCTIONS ###

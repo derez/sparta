@@ -14,6 +14,9 @@ Copyright (c) 2014 SECFORCE (Antonio Quina and Leonidas Stavliotis)
 from PyQt4 import QtGui, QtCore
 from auxiliary import *													# for bubble sort
 
+import logging
+logger = logging.getLogger(__name__)
+
 class ServicesTableModel(QtCore.QAbstractTableModel):					# needs to inherit from QAbstractTableModel
 
 	def __init__(self, services = [[]], headers = [], parent = None):

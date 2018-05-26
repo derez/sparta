@@ -15,6 +15,9 @@ from elixir import metadata, Entity, Field
 from elixir import Unicode, UnicodeText, Integer, String
 from elixir import OneToMany, ManyToMany, ManyToOne, OneToOne
 
+import logging
+logger = logging.getLogger(__name__)
+
 # This class holds various info about an nmap scan
 class nmap_session(Entity):
 	filename=Field(String)

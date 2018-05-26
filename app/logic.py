@@ -12,11 +12,13 @@ Copyright (c) 2015 SECFORCE (Antonio Quina and Leonidas Stavliotis)
 '''
 
 import os, tempfile, ntpath, shutil										# for creation of temp files and file operations
-import logging		# test
 import subprocess	# for CWD
 from parsers.Parser import *
 from db.database import *
 from app.auxiliary import *
+
+import logging
+logger = logging.getLogger(__name__)
 
 class Logic():
 	def __init__(self):		
@@ -25,7 +27,7 @@ class Logic():
 																		# other variables initialised elsewhere: self.projectname, self.outputfolder, self.runningfolder, self.db, self.istemp
 	def createTemporaryFiles(self):
 		try:
-			print '[+] Creating temporary files..'
+			logger.info('[+] Creating temporary files..')
 			
 			self.istemp = True											# indicates that file is temporary and can be deleted if user exits without saving
 						
@@ -40,16 +42,16 @@ class Logic():
 			self.projectname = tf.name
 			self.db = Database(self.projectname)
 			
-		except:
-			print '\t[-] Something went wrong creating the temporary files..'
-			print "[-] Unexpected error:", sys.exc_info()[0]
+
+		except Exception as err:
+			logger.exception('[!] Error - {!r}'.format(err))
 
 	def removeTemporaryFiles(self):
-		print '[+] Removing temporary files and folders..'
+		logger.info('[+] Removing temporary files and folders.')
 		try:
 			if not self.istemp:											# if current project is not temporary
 				if not self.storeWordlists:								# delete wordlists if necessary
-					print '[+] Removing wordlist files.'
+					logger.info('[+] Removing wordlist files.')
 					os.remove(self.usernamesWordlist.filename)
 					os.remove(self.passwordsWordlist.filename)
 				
@@ -59,9 +61,9 @@ class Logic():
 			
 			shutil.rmtree(self.runningfolder)
 
-		except:
-			print '\t[-] Something went wrong removing temporary files and folders..'
-			print "[-] Unexpected error:", sys.exc_info()[0]
+		except Exception as err:
+			# Something went wrong removing temporary files and folders.
+			logger.exception('[!] Error - {!r}'.format(err))
 
 	def createFolderForTool(self, tool):
 		if 'nmap' in tool:
@@ -101,9 +103,10 @@ class Logic():
 				shutil.move(str(outputFilename)+'.xml', str(path))
 			elif os.path.exists(str(outputFilename)+'.txt') and os.path.isfile(str(outputFilename)+'.txt'):
 				shutil.move(str(outputFilename)+'.txt', str(path))							
-		except:
-			print '[-] Something went wrong moving the tool output file..'
-			print "[-] Unexpected error:", sys.exc_info()[0]
+
+		except Exception as err:
+			# Something went wrong moving the tool output file.
+			logger.exception('[!] Error - {!r}'.format(err))
 
 	def copyNmapXMLToOutputFolder(self, file):
 		try:
@@ -113,13 +116,14 @@ class Logic():
 				os.makedirs(str(path))
 
 			shutil.copy(str(file), str(path))	# will overwrite if file already exists
-		except:
-			print '[-] Something went wrong copying the imported XML to the project folder.'
-			print "[-] Unexpected error:", sys.exc_info()[0]			
+
+		except Exception as err:
+			#Something went wrong copying the imported XML to the project folder.
+			logger.exception('[!] Error - {!r}'.format(err))
 
 	def openExistingProject(self, filename):
 		try:
-			print '[+] Opening project..'
+			logger.info('[+] Opening project.')
 			self.istemp = False											# indicate the file is NOT temporary and should NOT be deleted later
 			
 			self.projectname = str(filename)							# set the new projectname and outputfolder vars
@@ -135,9 +139,8 @@ class Logic():
 			self.db = Database(self.projectname)						# use the new db
 			self.cwd = ntpath.dirname(str(self.projectname))+'/'		# update cwd so it appears nicely in the window title
 		
-		except:
-			print '\t[-] Something went wrong while opening the project..'
-			print "[-] Unexpected error:", sys.exc_info()[0]
+		except Exception as err:
+			logger.exception('[!] Error - {!r}'.format(err))
 		
 	# this function copies the current project files and folder to a new location
 	# if the replace flag is set to 1, it overwrites the destination file and folder
@@ -158,7 +161,7 @@ class Logic():
 			os.system('cp -r "'+self.outputfolder+'/." "'+str(foldername)+'"')
 			
 			if self.istemp:												# we can remove the temp file/folder if it was temporary
-				print '[+] Removing temporary files and folders..'
+				logger.info('[+] Removing temporary files and folders.')
 				os.remove(self.projectname)
 				shutil.rmtree(self.outputfolder)
 
@@ -172,11 +175,10 @@ class Logic():
 			
 			self.istemp = False											# indicate that file is NOT temporary anymore and should NOT be deleted later
 			return True
-
-		except:
-			print '\t[-] Something went wrong while saving the project..'
-			print "\t[-] Unexpected error:", sys.exc_info()[0]
-			return False
+			
+		except Exception as err:
+			#Something went wrong while saving the project.'
+			logger.exception('[!] Error - {!r}'.format(err))
 
 	def isHostInDB(self, host):											# used we don't run tools on hosts out of scope
 		tmp_query = 'SELECT host.ip FROM db_tables_nmap_host AS host WHERE host.ip == ? OR host.hostname == ?'
@@ -504,14 +506,15 @@ class NmapImporter(QtCore.QThread):
 
 	def run(self):														# it is necessary to get the qprocess because we need to send it back to the scheduler when we're done importing
 		try:
-			print "[+] Parsing nmap xml file: " + self.filename
+			logging.info("[+] Parsing nmap xml file: " + self.filename)
 			starttime = time.time()
 			
 			try:
 				parser = Parser(self.filename)
-			except:
-				print '\t[-] Giving up on import due to previous errors.'
-				print "\t[-] Unexpected error:", sys.exc_info()[0]
+
+			except Exception as err:
+				#Giving up on import due to previous errors.')
+				logger.exception('[!] Error - {!r}'.format(err))
 				self.done.emit()
 				return
 				
@@ -660,11 +663,10 @@ class NmapImporter(QtCore.QThread):
 
 			session.commit()
 			self.db.dbsemaphore.release()								# we are done with the DB
-			print '\t[+] Finished in '+ str(time.time()-starttime) + ' seconds.'
+			logger.info('\t[+] Finished in '+ str(time.time()-starttime) + ' seconds.')
 			self.done.emit()
 			self.schedule.emit(parser, self.output == '')				# call the scheduler (if there is no terminal output it means we imported nmap)
 			
-		except:
-			print '\t[-] Something went wrong when parsing the nmap file..'
-			print "\t[-] Unexpected error:", sys.exc_info()[0]
+		except Exception as err:
+			logger.exception('[!] Error - {!r}'.format(err))
 			self.done.emit()

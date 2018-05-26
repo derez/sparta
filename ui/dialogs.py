@@ -15,6 +15,9 @@ import os
 from PyQt4.QtGui import *												# for filters dialog
 from app.auxiliary import *												# for timestamps
 
+import logging
+logger = logging.getLogger(__name__)
+
 # progress bar widget that displayed when long operations are taking place (eg: nmap, opening project)
 class ProgressWidget(QtGui.QDialog):
 	def __init__(self, text, parent=None):

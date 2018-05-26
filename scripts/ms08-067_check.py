@@ -54,15 +54,15 @@ try:
     from impacket.dcerpc.v5 import dcerpc
     from impacket.dcerpc.v5 import transport
 except ImportError, _:
-    print 'ERROR: this tool requires python-impacket library to be installed, get it '
-    print 'from http://oss.coresecurity.com/projects/impacket.html or apt-get install python-impacket'
+    print('ERROR: this tool requires python-impacket library to be installed, get it ')
+    print('from http://oss.coresecurity.com/projects/impacket.html or apt-get install python-impacket')
     sys.exit(1)
 
 try:
     from ndr import *
 except ImportError, _:
-    print 'ERROR: this tool requires python-pymsrpc library to be installed, get it '
-    print 'from http://code.google.com/p/pymsrpc/'
+    print('ERROR: this tool requires python-pymsrpc library to be installed, get it ')
+    print('from http://code.google.com/p/pymsrpc/')
     sys.exit(1)
 
 
@@ -182,9 +182,9 @@ class MS08_067(Thread):
 
     def result(self):
         if CMDLINE == True and self.status in ('VULNERABLE', 'not vulnerable'):
-           print '%s: %s' % (self.target, self.status)
+           print('%s: %s' % (self.target, self.status))
         elif CMDLINE == True and SILENT != True:
-           print '%s: %s' % (self.target, self.status)
+           print('%s: %s' % (self.target, self.status))
 
 
     def run(self):
@@ -246,7 +246,7 @@ if __name__ == '__main__':
         try:
             fd = open(tList, 'r')
         except IOError:
-            print 'ERROR: unable to read targets list file \'%s\'' % tList
+            print('ERROR: unable to read targets list file \'%s\'' % tList)
             sys.exit(1)
 
         for line in fd.readlines():
@@ -256,7 +256,7 @@ if __name__ == '__main__':
         targets.add(target)
 
     if not targets:
-        print 'ERROR: no targets specified'
+        print('ERROR: no targets specified')
         sys.exit(1)
 
     targets = list(targets)
@@ -264,12 +264,12 @@ if __name__ == '__main__':
 
     if not SILENT:
         print
-        print '***********************************************************************'
-        print '* On Windows XP SP2 and SP3 this check might lead to a race condition *'
-        print '* and heap corruption in the svchost.exe process, but it may not      *'
-        print '* crash the service immediately, it can trigger later on inside any   *'
-        print '* of the shared services in the process.                              *'
-        print '***********************************************************************'
+        print('***********************************************************************')
+        print('* On Windows XP SP2 and SP3 this check might lead to a race condition *')
+        print('* and heap corruption in the svchost.exe process, but it may not      *')
+        print('* crash the service immediately, it can trigger later on inside any   *')
+        print('* of the shared services in the process.                              *')
+        print('***********************************************************************')
         print
         answer = raw_input('Do you want to continue? [Y/n] ')
 

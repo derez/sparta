@@ -1,0 +1,18 @@
+# Nmap 7.70 scan initiated Fri May 25 21:44:01 2018 as: nmap -T4 -sV -n -sSU -p T:23,21,110,111,2049,3389,8080,U:500,5060 -oA /tmp/sparta-BP8eAy-running/nmap/20180525214401-nmapstage3 10.11.1.5
+Nmap scan report for 10.11.1.5
+Host is up (0.16s latency).
+
+PORT     STATE  SERVICE    VERSION
+21/tcp   closed ftp
+23/tcp   closed telnet
+110/tcp  closed pop3
+111/tcp  closed rpcbind
+2049/tcp closed nfs
+3389/tcp open   tcpwrapped
+8080/tcp closed http-proxy
+500/udp  closed isakmp
+5060/udp closed sip
+MAC Address: 00:50:56:B8:2F:F5 (VMware)
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Fri May 25 21:44:02 2018 -- 1 IP address (1 host up) scanned in 1.35 seconds

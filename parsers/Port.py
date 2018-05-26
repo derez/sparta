@@ -7,6 +7,9 @@ import sys
 import xml.dom.minidom
 import Service, Script
 
+import logging
+logger = logging.getLogger(__name__)
+
 class Port:
 	portId = ''
 	protocol= ''

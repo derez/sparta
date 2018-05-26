@@ -16,6 +16,9 @@ from PyQt4 import QtGui, QtCore
 from PyQt4.QtGui import *												# for QFont
 from auxiliary import *													# for bubble sort
 
+import logging
+logger = logging.getLogger(__name__)
+
 class HostsTableModel(QtCore.QAbstractTableModel):
     
 	def __init__(self, hosts = [[]], headers = [], parent = None):

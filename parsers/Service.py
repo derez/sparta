@@ -7,6 +7,9 @@ __modified_by = 'ketchup'
 import sys
 import xml.dom.minidom
 
+import logging
+logger = logging.getLogger(__name__)
+
 class Service:
     extrainfo = ''
     name = ''

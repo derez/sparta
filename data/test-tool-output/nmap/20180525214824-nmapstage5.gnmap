@@ -1,0 +1,4 @@
+# Nmap 7.70 scan initiated Fri May 25 21:48:24 2018 as: nmap -T4 -sV -n -sSU -p T:30000-30001 -oA /tmp/sparta-BP8eAy-running/nmap/20180525214824-nmapstage5 10.11.1.5
+Host: 10.11.1.5 ()	Status: Up
+Host: 10.11.1.5 ()	Ports: 30000/closed/tcp//ndmps///, 30001/closed/tcp//pago-services1///
+# Nmap done at Fri May 25 21:48:25 2018 -- 1 IP address (1 host up) scanned in 0.83 seconds

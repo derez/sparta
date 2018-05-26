@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-
+# -*- coding: utf-8 -*
 '''
 SPARTA - Network Infrastructure Penetration Testing Tool (http://sparta.secforce.com)
 Copyright (c) 2015 SECFORCE (Antonio Quina and Leonidas Stavliotis)
@@ -17,12 +16,16 @@ from PyQt4.QtGui import *												# for filters dialog
 from app.logic import *
 from app.auxiliary import *
 from app.settings import *
+import logging
+logger = logging.getLogger(__name__)
+
+
 
 class Controller():
 
 	# initialisations that will happen once - when the program is launched
 	def __init__(self, view, logic):
-		self.version = 'SPARTA 1.0.3 (BETA)'							# update this everytime you commit!
+		self.version = 'SPARTA 1.0.3 (BETA) - broken by derez'			# update this everytime you commit!
 		self.logic = logic
 		self.view = view
 		self.view.setController(self)
@@ -77,7 +80,7 @@ class Controller():
 		self.view.settingsWidget.setSettings(Settings(self.settingsFile))
 		
 	def applySettings(self, newSettings):								# call this function when clicking 'apply' in the settings menu (after validation)
-		print '[+] Applying settings!'
+		logger.info('[+] Applying settings!')
 		self.settings = newSettings
 
 	def cancelSettings(self):											# called when the user presses cancel in the Settings dialog
@@ -85,10 +88,10 @@ class Controller():
 
 	def saveSettings(self):
 		if not self.settings == self.originalSettings:
-			print '[+] Settings have been changed.'
+			logger.info('[+] Settings have been changed.')
 			self.settingsFile.backupAndSave(self.settings)
 		else:
-			print '[+] Settings have NOT been changed.'
+			logger.info('[+] Settings have NOT been changed.')
 
 	def getSettings(self):
 		return self.settings
@@ -177,7 +180,7 @@ class Controller():
 
 	def addHosts(self, iprange, runHostDiscovery, runStagedNmap):
 		if iprange == '':
-			print '[-] No hosts entered..'
+			logger.info('[-] No hosts entered..')
 			return
 
 		if runStagedNmap:
@@ -228,7 +231,7 @@ class Controller():
 			return
 			
 		if action.text() == 'Run nmap (staged)':
-			print '[+] Purging previous portscan data for ' + str(ip)	# if we are running nmap we need to purge previous portscan results
+			logger.info('[+] Purging previous portscan data for ' + str(ip))	# if we are running nmap we need to purge previous portscan results
 			if self.logic.getPortsForHostFromDB(ip, 'tcp'):
 				self.logic.deleteAllPortsAndScriptsForHostFromDB(hostid, 'tcp')
 			if self.logic.getPortsForHostFromDB(ip, 'udp'):
@@ -349,7 +352,7 @@ class Controller():
 			return
 
 		if action.text() == 'Run custom command':
-			print 'custom command'
+			logger.info('custom command')
 			return
 			
 		terminal = self.settings.general_default_terminal				# handle terminal actions	
@@ -377,12 +380,12 @@ class Controller():
 				for p in selectedProcesses:
 					if p[1]!="Running":
 						if p[1]=="Waiting":
-							#print "\t[-] Process still waiting to start. Skipping."
+							logging.info("[-] Process still waiting to start. Skipping.")
 							if str(self.logic.getProcessStatusForDBId(p[2])) == 'Running':
 								self.killProcess(self.view.ProcessesTableModel.getProcessPidForId(p[2]), p[2])
 							self.logic.storeProcessCancelStatusInDB(str(p[2]))
 						else:
-							print "\t[-] This process has already been terminated. Skipping."
+							logging.info("\t[-] This process has already been terminated. Skipping.")
 					else:
 						self.killProcess(p[0], p[2])
 				self.view.updateProcessesTableView()
@@ -449,46 +452,46 @@ class Controller():
 	#################### PROCESSES ####################
 
 	def checkProcessQueue(self):
-#		print '# MAX PROCESSES: ' + str(self.settings.general_max_fast_processes)
-#		print '# fast processes running: ' + str(self.fastProcessesRunning)
-#		print '# fast processes queued: ' + str(self.fastProcessQueue.qsize())
+#		logger.info('# MAX PROCESSES: ' + str(self.settings.general_max_fast_processes))
+#		logger.info('# fast processes running: ' + str(self.fastProcessesRunning))
+#		logger.info('# fast processes queued: ' + str(self.fastProcessQueue.qsize()))
 		
 		if not self.fastProcessQueue.empty():
 			if (self.fastProcessesRunning < int(self.settings.general_max_fast_processes)):
 				next_proc = self.fastProcessQueue.get()
 				if not self.logic.isCanceledProcess(str(next_proc.id)):
-					#print '[+] Running: '+ str(next_proc.command)
+					#logger.info('[+] Running: '+ str(next_proc.command))
 					next_proc.display.clear()
 					self.processes.append(next_proc)
 					self.fastProcessesRunning += 1
 					next_proc.start(next_proc.command)
 					self.logic.storeProcessRunningStatusInDB(next_proc.id, next_proc.pid())
 				elif not self.fastProcessQueue.empty():
-#					print '> next process was canceled, checking queue again..'
+#					logger.info('> next process was canceled, checking queue again..')
 					self.checkProcessQueue()
 #			else:
-#				print '> cannot run processes in the queue'
+#				logger.info('> cannot run processes in the queue')
 #		else:
-#			print '> queue is empty'
+#			logger.info('> queue is empty')
 			
 	def cancelProcess(self, dbId):
-		print '[+] Canceling process: ' + str(dbId)
+		logger.info('[+] Canceling process: ' + str(dbId))
 		self.logic.storeProcessCancelStatusInDB(str(dbId))				# mark it as cancelled
 		self.updateUITimer.stop()
 		self.updateUITimer.start(1500)									# update the interface soon
 
 	def killProcess(self, pid, dbId):
-		print '[+] Killing process: ' + str(pid)	
+		logger.info('[+] Killing process: ' + str(pid))
 		self.logic.storeProcessKillStatusInDB(str(dbId))				# mark it as killed
 		try:
 			os.kill(int(pid), signal.SIGTERM)
 		except OSError:
-			print '\t[-] This process has already been terminated.'
-		except:
-			print "\t[-] Unexpected error:", sys.exc_info()[0]
+			logger.info('\t[-] This process has already been terminated.')
+		except Exception as err:
+			logger.exception('[!] Error: {!r}'.format(err))
 
 	def killRunningProcesses(self):
-		print '[+] Killing running processes!'
+		logger.info('[+] Killing running processes!')
 		for p in self.processes:
 			p.finished.disconnect()					# experimental
 			self.killProcess(int(p.pid()), p.id)
@@ -499,7 +502,7 @@ class Controller():
 		self.logic.createFolderForTool(name)							# create folder for tool if necessary
 		qProcess = MyQProcess(name, tabtitle, hostip, port, protocol, command, starttime, outputfile, textbox)
 		textbox.setProperty('dbId', QVariant(str(self.logic.addProcessToDB(qProcess)))) # database id for the process is stored so that we can retrieve the widget later (in the tools tab)
-		#print '[+] Queuing: ' + str(command)
+		logger.debug('[+] Queuing: {!s}'.format(command))
 		self.fastProcessQueue.put(qProcess)
 		qProcess.display.appendPlainText('The process is queued and will start as soon as possible.')
 		qProcess.display.appendPlainText('If you want to increase the number of simultaneous processes, change this setting in the configuration file.')
@@ -509,8 +512,8 @@ class Controller():
 		self.updateUITimer.stop()										# update the processes table
 		self.updateUITimer.start(900)
 																		# while the process is running, when there's output to read, display it in the GUI
-		QObject.connect(qProcess,SIGNAL("readyReadStandardOutput()"),qProcess,SLOT("readStdOutput()"))
-		QObject.connect(qProcess,SIGNAL("readyReadStandardError()"),qProcess,SLOT("readStdOutput()"))
+		QObject.connect(qProcess, SIGNAL("readyReadStandardOutput()"), qProcess, SLOT("readStdOutput()"))
+		QObject.connect(qProcess, SIGNAL("readyReadStandardError()"), qProcess, SLOT("readStdOutput()"))
 																		# when the process is finished do this
 		qProcess.sigHydra.connect(self.handleHydraFindings)
 		qProcess.finished.connect(lambda: self.processFinished(qProcess))
@@ -571,12 +574,12 @@ class Controller():
 	def processCrashed(self, proc):
 		#self.processFinished(proc, True)
 		self.logic.storeProcessCrashStatusInDB(str(proc.id))
-		print '[+] Process killed!'
+		logger.info('[+] Process killed!')
 		
 	# this function handles everything after a process ends
 	#def processFinished(self, qProcess, crashed=False):
 	def processFinished(self, qProcess):
-		#print 'processFinished!!'
+		#logger.info('processFinished!!')
 		try:
 			if not self.logic.isKilledProcess(str(qProcess.id)):		# if process was not killed
 				if not qProcess.outputfile == '':
@@ -592,7 +595,7 @@ class Controller():
 							if self.view.menuVisible == False:
 								self.view.importProgressWidget.show()
 				
-				print "\t[+] The process is done!"
+				logger.info("\t[+] The process is done!")
 			
 			self.logic.storeProcessOutputInDB(str(qProcess.id), qProcess.display.toPlainText())
 			
@@ -623,7 +626,7 @@ class Controller():
 		if isNmapImport and self.settings.general_enable_scheduler_on_import == 'False':
 			return
 		if self.settings.general_enable_scheduler == 'True':
-			print '[+] Scheduler started!'
+			logger.info('[+] Scheduler started!')
 			
 			for h in parser.all_hosts():
 				for p in h.all_ports():
@@ -632,11 +635,11 @@ class Controller():
 						if not (s is None):
 							self.runToolsFor(s.name, h.ip, p.portId, p.protocol)
 					
-			print '-----------------------------------------------'
-		print '[+] Scheduler ended!'
+			logger.info('-----------------------------------------------')
+		logger.info('[+] Scheduler ended!')
 
 	def runToolsFor(self, service, ip, port, protocol='tcp'):
-		print '\t[+] Running tools for: ' + service + ' on ' + ip + ':' + port
+		logger.info('\t[+] Running tools for: ' + service + ' on ' + ip + ':' + port)
 
 		if service.endswith("?"):										# when nmap is not sure it will append a ?, so we need to remove it
 			service=service[:-1]

@@ -1,0 +1,15 @@
+# Nmap 7.70 scan initiated Fri May 25 18:50:02 2018 as: nmap -Pn -sV -sC -vvvvv -p3389 -oA /tmp/sparta-YDx5Dw-running/nmap/20180525185002-nmap-10.11.1.13-3389 10.11.1.13
+Nmap scan report for 10.11.1.13
+Host is up, received arp-response (0.16s latency).
+Scanned at 2018-05-25 18:50:03 EDT for 83s
+
+PORT     STATE SERVICE        REASON          VERSION
+3389/tcp open  ms-wbt-server? syn-ack ttl 128
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port3389-TCP:V=7.70%I=7%D=5/25%Time=5B089327%P=x86_64-pc-linux-gnu%r(Te
+SF:rminalServerCookie,B,"\x03\0\0\x0b\x06\xd0\0\0\x124\0");
+MAC Address: 00:50:56:B8:32:57 (VMware)
+
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Fri May 25 18:51:26 2018 -- 1 IP address (1 host up) scanned in 83.73 seconds

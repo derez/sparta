@@ -9,6 +9,9 @@ import pprint
 import Service, Script, OS, Port
 import xml.dom.minidom
 
+import logging
+logger = logging.getLogger(__name__)
+
 class Host:
 	ipv4 = ''
 	ipv6 = ''
@@ -122,8 +125,8 @@ if __name__ == '__main__':
     host_node = dom.getElementsByTagName('host')[0]
 
     h = Host( host_node )
-    print 'host status: ' + h.status
-    print 'host ip: ' + h.ip
+    logger.info('host status: ' + h.status)
+    logger.info('host ip: ' + h.ip)
 
     for port in h.get_ports( 'tcp', 'open' ):
         print port + " is open"

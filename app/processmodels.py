@@ -15,6 +15,9 @@ import re
 from PyQt4 import QtGui, QtCore
 from auxiliary import *													# for bubble sort
 
+import logging
+logger = logging.getLogger(__name__)
+
 class ProcessesTableModel(QtCore.QAbstractTableModel):
     
 	def __init__(self, controller, processes = [[]], headers = [], parent = None):

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.70 scan initiated Fri May 25 18:30:45 2018 as: nmap -Pn -sV -sC -vvvvv -p80 -oA /tmp/sparta-YDx5Dw-running/nmap/20180525183045-nmap-10.11.1.13-80 10.11.1.13 -->
+<nmaprun scanner="nmap" args="nmap -Pn -sV -sC -vvvvv -p80 -oA /tmp/sparta-YDx5Dw-running/nmap/20180525183045-nmap-10.11.1.13-80 10.11.1.13" start="1527287445" startstr="Fri May 25 18:30:45 2018" version="7.70" xmloutputversion="1.04">
+<scaninfo type="syn" protocol="tcp" numservices="1" services="80"/>
+<verbose level="5"/>
+<debugging level="0"/>
+<taskbegin task="NSE" time="1527287445"/>
+<taskend task="NSE" time="1527287445"/>
+<taskbegin task="NSE" time="1527287445"/>
+<taskend task="NSE" time="1527287445"/>
+<taskbegin task="ARP Ping Scan" time="1527287445"/>
+<taskend task="ARP Ping Scan" time="1527287445" extrainfo="1 total hosts"/>
+<taskbegin task="Parallel DNS resolution of 1 host." time="1527287445"/>
+<taskend task="Parallel DNS resolution of 1 host." time="1527287445"/>
+<taskbegin task="SYN Stealth Scan" time="1527287445"/>
+<taskend task="SYN Stealth Scan" time="1527287445" extrainfo="1 total ports"/>
+<taskbegin task="Service scan" time="1527287446"/>
+<taskend task="Service scan" time="1527287452" extrainfo="1 service on 1 host"/>
+<taskbegin task="NSE" time="1527287452"/>
+<taskend task="NSE" time="1527287455"/>
+<taskbegin task="NSE" time="1527287455"/>
+<taskend task="NSE" time="1527287455"/>
+<host starttime="1527287445" endtime="1527287455"><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="10.11.1.13" addrtype="ipv4"/>
+<address addr="00:50:56:B8:32:57" addrtype="mac" vendor="VMware"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="http" product="Microsoft IIS httpd" version="5.1" ostype="Windows" method="probed" conf="10"><cpe>cpe:/a:microsoft:iis:5.1</cpe><cpe>cpe:/o:microsoft:windows</cpe></service><script id="http-methods" output="&#xa;  Supported Methods: OPTIONS TRACE GET HEAD DELETE COPY MOVE PROPFIND PROPPATCH SEARCH MKCOL LOCK UNLOCK PUT POST&#xa;  Potentially risky methods: TRACE DELETE COPY MOVE PROPFIND PROPPATCH SEARCH MKCOL LOCK UNLOCK PUT"><table key="Supported Methods">
+<elem>OPTIONS</elem>
+<elem>TRACE</elem>
+<elem>GET</elem>
+<elem>HEAD</elem>
+<elem>DELETE</elem>
+<elem>COPY</elem>
+<elem>MOVE</elem>
+<elem>PROPFIND</elem>
+<elem>PROPPATCH</elem>
+<elem>SEARCH</elem>
+<elem>MKCOL</elem>
+<elem>LOCK</elem>
+<elem>UNLOCK</elem>
+<elem>PUT</elem>
+<elem>POST</elem>
+</table>
+<table key="Potentially risky methods">
+<elem>TRACE</elem>
+<elem>DELETE</elem>
+<elem>COPY</elem>
+<elem>MOVE</elem>
+<elem>PROPFIND</elem>
+<elem>PROPPATCH</elem>
+<elem>SEARCH</elem>
+<elem>MKCOL</elem>
+<elem>LOCK</elem>
+<elem>UNLOCK</elem>
+<elem>PUT</elem>
+</table>
+</script><script id="http-server-header" output="Microsoft-IIS/5.1"><elem>Microsoft-IIS/5.1</elem>
+</script><script id="http-webdav-scan" output="&#xa;  Server Type: Microsoft-IIS/5.1&#xa;  Public Options: OPTIONS, TRACE, GET, HEAD, DELETE, PUT, POST, COPY, MOVE, MKCOL, PROPFIND, PROPPATCH, LOCK, UNLOCK, SEARCH&#xa;  WebDAV type: Unkown&#xa;  Server Date: Fri, 25 May 2018 22:21:52 GMT&#xa;  Allowed Methods: OPTIONS, TRACE, GET, HEAD, DELETE, COPY, MOVE, PROPFIND, PROPPATCH, SEARCH, MKCOL, LOCK, UNLOCK"><elem key="Server Type">Microsoft-IIS/5.1</elem>
+<elem key="Public Options">OPTIONS, TRACE, GET, HEAD, DELETE, PUT, POST, COPY, MOVE, MKCOL, PROPFIND, PROPPATCH, LOCK, UNLOCK, SEARCH</elem>
+<elem key="WebDAV type">Unkown</elem>
+<elem key="Server Date">Fri, 25 May 2018 22:21:52 GMT</elem>
+<elem key="Allowed Methods">OPTIONS, TRACE, GET, HEAD, DELETE, COPY, MOVE, PROPFIND, PROPPATCH, SEARCH, MKCOL, LOCK, UNLOCK</elem>
+</script></port>
+</ports>
+<times srtt="156159" rttvar="117293" to="625331"/>
+</host>
+<taskbegin task="NSE" time="1527287455"/>
+<taskend task="NSE" time="1527287455"/>
+<taskbegin task="NSE" time="1527287455"/>
+<taskend task="NSE" time="1527287455"/>
+<runstats><finished time="1527287455" timestr="Fri May 25 18:30:55 2018" elapsed="10.55" summary="Nmap done at Fri May 25 18:30:55 2018; 1 IP address (1 host up) scanned in 10.55 seconds" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

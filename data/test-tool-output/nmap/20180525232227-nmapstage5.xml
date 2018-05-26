@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.70 scan initiated Fri May 25 23:22:28 2018 as: nmap -T4 -sV -n -sSU -p T:30000-30001 -oA /tmp/sparta-BP8eAy-running/nmap/20180525232227-nmapstage5 10.11.1.14 -->
+<nmaprun scanner="nmap" args="nmap -T4 -sV -n -sSU -p T:30000-30001 -oA /tmp/sparta-BP8eAy-running/nmap/20180525232227-nmapstage5 10.11.1.14" start="1527304948" startstr="Fri May 25 23:22:28 2018" version="7.70" xmloutputversion="1.04">
+<scaninfo type="syn" protocol="tcp" numservices="2" services="30000-30001"/>
+<scaninfo type="udp" protocol="udp" numservices="0" services=""/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1527304948" endtime="1527304951"><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="10.11.1.14" addrtype="ipv4"/>
+<address addr="00:50:56:B8:A2:54" addrtype="mac" vendor="VMware"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="30000"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="ndmps" method="table" conf="3"/></port>
+<port protocol="tcp" portid="30001"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="pago-services1" method="table" conf="3"/></port>
+</ports>
+<times srtt="155920" rttvar="155920" to="779600"/>
+</host>
+<runstats><finished time="1527304951" timestr="Fri May 25 23:22:31 2018" elapsed="3.26" summary="Nmap done at Fri May 25 23:22:31 2018; 1 IP address (1 host up) scanned in 3.26 seconds" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

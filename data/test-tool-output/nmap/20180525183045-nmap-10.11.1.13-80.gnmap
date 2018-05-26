@@ -1,0 +1,5 @@
+# Nmap 7.70 scan initiated Fri May 25 18:30:45 2018 as: nmap -Pn -sV -sC -vvvvv -p80 -oA /tmp/sparta-YDx5Dw-running/nmap/20180525183045-nmap-10.11.1.13-80 10.11.1.13
+# Ports scanned: TCP(1;80) UDP(0;) SCTP(0;) PROTOCOLS(0;)
+Host: 10.11.1.13 ()	Status: Up
+Host: 10.11.1.13 ()	Ports: 80/open/tcp//http//Microsoft IIS httpd 5.1/
+# Nmap done at Fri May 25 18:30:55 2018 -- 1 IP address (1 host up) scanned in 10.55 seconds

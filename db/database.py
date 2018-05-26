@@ -18,6 +18,9 @@ from PyQt4.QtCore import QSemaphore
 from tables import *
 import time
 
+import logging
+logger = logging.getLogger(__name__)
+
 class Database:
 	# TODO: sanitise dbfilename
 	def __init__(self, dbfilename):
@@ -29,7 +32,7 @@ class Database:
 			setup_all()
 			create_all()
 		except:
-			print '[-] Could not create database. Please try again.'
+			logger.info('[-] Could not create database. Please try again.')
 
 	def openDB(self, dbfilename):
 		try:
@@ -38,7 +41,7 @@ class Database:
 	#		metadata.bind.echo = True									# uncomment to see detailed database logs
 			setup_all()
 		except:
-			print '[-] Could not open database file. Is the file corrupted?'
+			logger.info('[-] Could not open database file. Is the file corrupted?')
 
 	# this function commits any modified data to the db, ensuring no concurrent write access to the DB (within the same thread)
 	# if you code a thread that writes to the DB, make sure you acquire/release at the beginning/end of the thread (see nmap importer)

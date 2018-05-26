@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.70 scan initiated Fri May 25 18:50:09 2018 as: nmap -Pn -sV -sC -vvvvv -p21 -oA /tmp/sparta-YDx5Dw-running/nmap/20180525185009-nmap-10.11.1.13-21 10.11.1.13 -->
+<nmaprun scanner="nmap" args="nmap -Pn -sV -sC -vvvvv -p21 -oA /tmp/sparta-YDx5Dw-running/nmap/20180525185009-nmap-10.11.1.13-21 10.11.1.13" start="1527288609" startstr="Fri May 25 18:50:09 2018" version="7.70" xmloutputversion="1.04">
+<scaninfo type="syn" protocol="tcp" numservices="1" services="21"/>
+<verbose level="5"/>
+<debugging level="0"/>
+<taskbegin task="NSE" time="1527288609"/>
+<taskend task="NSE" time="1527288609"/>
+<taskbegin task="NSE" time="1527288609"/>
+<taskend task="NSE" time="1527288609"/>
+<taskbegin task="ARP Ping Scan" time="1527288609"/>
+<taskend task="ARP Ping Scan" time="1527288609" extrainfo="1 total hosts"/>
+<taskbegin task="Parallel DNS resolution of 1 host." time="1527288609"/>
+<taskend task="Parallel DNS resolution of 1 host." time="1527288609"/>
+<taskbegin task="SYN Stealth Scan" time="1527288609"/>
+<taskend task="SYN Stealth Scan" time="1527288610" extrainfo="1 total ports"/>
+<taskbegin task="Service scan" time="1527288610"/>
+<taskend task="Service scan" time="1527288610" extrainfo="1 service on 1 host"/>
+<taskbegin task="NSE" time="1527288610"/>
+<taskend task="NSE" time="1527288619"/>
+<taskbegin task="NSE" time="1527288619"/>
+<taskend task="NSE" time="1527288619"/>
+<host starttime="1527288609" endtime="1527288619"><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="10.11.1.13" addrtype="ipv4"/>
+<address addr="00:50:56:B8:32:57" addrtype="mac" vendor="VMware"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="21"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="ftp" product="Microsoft ftpd" ostype="Windows" method="probed" conf="10"><cpe>cpe:/a:microsoft:ftp_service</cpe><cpe>cpe:/o:microsoft:windows</cpe></service><script id="ftp-anon" output="Anonymous FTP login allowed (FTP code 230)&#xa;05-22-18  08:57PM               792208 accesschk.exe&#xa;01-17-07  07:42PM       &lt;DIR&gt;          AdminScripts&#xa;05-22-18  08:37PM               364326 exploit2.exe&#xa;01-17-07  07:43PM       &lt;DIR&gt;          ftproot&#xa;01-17-07  07:43PM       &lt;DIR&gt;          iissamples&#xa;05-25-18  11:37PM       &lt;DIR&gt;          Scripts&#xa;05-23-18  06:01AM                    0 test&#xa;05-25-18  11:25PM       &lt;DIR&gt;          wwwroot"/><script id="ftp-syst" output="&#xa;  SYST: Windows_NT"><elem key="SYST">Windows_NT</elem>
+</script></port>
+</ports>
+<times srtt="160826" rttvar="122574" to="651122"/>
+</host>
+<taskbegin task="NSE" time="1527288619"/>
+<taskend task="NSE" time="1527288619"/>
+<taskbegin task="NSE" time="1527288619"/>
+<taskend task="NSE" time="1527288619"/>
+<runstats><finished time="1527288619" timestr="Fri May 25 18:50:19 2018" elapsed="10.21" summary="Nmap done at Fri May 25 18:50:19 2018; 1 IP address (1 host up) scanned in 10.21 seconds" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

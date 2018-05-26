@@ -15,15 +15,18 @@ import sys, os
 from PyQt4 import QtCore, QtGui
 from app.auxiliary import *												# for timestamp
 
+import logging
+logger = logging.getLogger(__name__)
+
 # this class reads and writes application settings
 class AppSettings():
 	def __init__(self):
 		# check if settings file exists and creates it if it doesn't
 		if not os.path.exists('./sparta.conf'):
-			print '[+] Creating settings file..'
+			logger.info('[+] Creating settings file..')
 			self.createDefaultSettings()
 		else:
-			print '[+] Loading settings file..'
+			logger.info('[+] Loading settings file..')
 			self.actions = QtCore.QSettings('./sparta.conf', QtCore.QSettings.NativeFormat)
 
 	# This function creates the default settings file. Note that, in general, everything is case sensitive.
@@ -272,7 +275,7 @@ class AppSettings():
 		
 	def backupAndSave(self, newSettings):
 		# Backup and save
-		print '[+] Backing up old settings and saving new settings..'
+		logger.info('[+] Backing up old settings and saving new settings..')
 		os.rename('./sparta.conf', './'+getTimestamp()+'-sparta.conf')	
 		self.actions = QtCore.QSettings('./sparta.conf', QtCore.QSettings.NativeFormat)
 
@@ -413,9 +416,10 @@ class Settings():
 				self.tools_path_cutycapt = self.toolSettings['cutycapt-path']
 				self.tools_path_texteditor = self.toolSettings['texteditor-path']
 				
-			except KeyError:
-				print '\t[-] Something went wrong while loading the configuration file. Falling back to default settings for some settings.'
-				print '\t[-] Go to the settings menu to fix the issues!'
+			except KeyError as err:
+				logger.error('\t[-] KeyError: {!r}'.format(err))
+				#Something went wrong while loading the configuration file. Falling back to default settings for some settings.
+				logger.error('\t[-] Go to the settings menu to fix the issues!')
 				# TODO: send signal to automatically open settings dialog here
 
 	def __eq__(self, other):											# returns false if settings objects are different
@@ -427,6 +431,6 @@ if __name__ == "__main__":
 	settings = AppSettings()
 	s = Settings(settings)
 	s2 = Settings(settings)
-	print s == s2
+	print(s == s2)
 	s2.general_default_terminal = 'whatever'
-	print s == s2
+	print(s == s2)

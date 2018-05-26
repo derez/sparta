@@ -1,0 +1,5 @@
+# Nmap 7.70 scan initiated Fri May 25 18:35:37 2018 as: nmap -Pn -sVU -sC -vvvvv -p161 -oA /tmp/sparta-YDx5Dw-running/nmap/20180525183537-nmap-10.11.1.13-161 10.11.1.13
+# Ports scanned: TCP(0;) UDP(1;161) SCTP(0;) PROTOCOLS(0;)
+Host: 10.11.1.13 ()	Status: Up
+Host: 10.11.1.13 ()	Ports: 161/open/udp//snmp//SNMPv1 server (public)/
+# Nmap done at Fri May 25 18:36:40 2018 -- 1 IP address (1 host up) scanned in 63.15 seconds

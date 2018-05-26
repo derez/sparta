@@ -11,6 +11,9 @@ Copyright (c) 2014 SECFORCE (Antonio Quina and Leonidas Stavliotis)
     You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
+import logging
+logger = logging.getLogger(__name__)
+
 import re
 from PyQt4 import QtGui, QtCore
 from auxiliary import *        											# for bubble sort

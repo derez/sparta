@@ -16,7 +16,7 @@ import sys, os, ntpath, signal, re										# for file operations, to kill proce
 try:
 	from PyQt4.QtCore import *												# for filters dialog
 except ImportError:
-	print "[-] Import failed. PyQt4 library not found. \nTry installing it with: apt install python-qt4"
+	print("[-] Import failed. PyQt4 library not found. \nTry installing it with: apt install python-qt4")
 
 try:
 	usePySide = False
@@ -26,7 +26,7 @@ except ImportError, e:
 		from PySide import QtWebKit
 		usePySide = True
 	except ImportError, e:
-		print "[-] Import failed. QtWebKit library not found. \nTry installing it with: apt install python-pyside.qtwebkit"
+		print("[-] Import failed. QtWebKit library not found. \nTry installing it with: apt install python-pyside.qtwebkit")
 		exit(1)
 
 from ui.gui import *
@@ -275,7 +275,7 @@ class View(QtCore.QObject):
 
 	def createNewProject(self):
 		if self.dealWithCurrentProject():
-			print '[+] Creating new project..'
+			logger.info('[+] Creating new project..')
 			self.controller.createNewProject()
 
 	###
@@ -289,7 +289,7 @@ class View(QtCore.QObject):
 		
 			if not filename == '':										# check for permissions
 				if not os.access(filename, os.R_OK) or not os.access(filename, os.W_OK):
-					print '[-] Insufficient permissions to open this file.'
+					logger.info('[-] Insufficient permissions to open this file.')
 					reply = QtGui.QMessageBox.warning(self.ui.centralwidget, 'Warning', "You don't have the necessary permissions on this file.","Ok")
 					return
 								
@@ -298,7 +298,7 @@ class View(QtCore.QObject):
 				self.displayAddHostsOverlay(False)						# do not show the overlay because the hosttableview is already populated
 
 			else:
-				print '\t[-] No file chosen..'
+				logger.info('\t[-] No file chosen..')
 
 	###
 	
@@ -310,12 +310,12 @@ class View(QtCore.QObject):
 		if self.firstSave:
 			self.saveProjectAs()
 		else:
-			print '[+] Saving project..'
+			logger.info('[+] Saving project..')
 			self.controller.saveProject(self.lastHostIdClicked, self.ui.NotesTextEdit.toPlainText())
 
 			self.setDirty(False)
 			self.ui.statusbar.showMessage('Saved!', msecs=1000)
-			print '\t[+] Saved!'
+			logger.info('\t[+] Saved!')
 
 	###
 	
@@ -324,7 +324,7 @@ class View(QtCore.QObject):
 
 	def saveProjectAs(self):
 		self.ui.statusbar.showMessage('Saving..')
-		print '[+] Saving project..'
+		logger.info('[+] Saving project..')
 
 		self.controller.saveProject(self.lastHostIdClicked, self.ui.NotesTextEdit.toPlainText())		
 
@@ -333,7 +333,7 @@ class View(QtCore.QObject):
 		while not filename =='':
 
 			if not os.access(ntpath.dirname(str(filename)), os.R_OK) or not os.access(ntpath.dirname(str(filename)), os.W_OK):
-				print '[-] Insufficient permissions on this folder.'
+				logger.info('[-] Insufficient permissions on this folder.')
 				reply = QtGui.QMessageBox.warning(self.ui.centralwidget, 'Warning', "You don't have the necessary permissions on this folder.","Ok")
 				
 			else:
@@ -356,9 +356,9 @@ class View(QtCore.QObject):
 			self.firstSave = False
 			self.ui.statusbar.showMessage('Saved!', msecs=1000)
 			self.controller.updateOutputFolder()
-			print '\t[+] Saved!'
+			logger.info('\t[+] Saved!')
 		else:
-			print '\t[-] No file chosen..'
+			logger.info('\t[-] No file chosen..')
 
 	###
 	
@@ -417,7 +417,7 @@ class View(QtCore.QObject):
 		if not filename == '':
 
 			if not os.access(filename, os.R_OK):						# check for read permissions on the xml file
-				print '[-] Insufficient permissions to read this file.'
+				logger.info('[-] Insufficient permissions to read this file.')
 				reply = QtGui.QMessageBox.warning(self.ui.centralwidget, 'Warning', "You don't have the necessary permissions to read this file.","Ok")
 				return
 
@@ -428,7 +428,7 @@ class View(QtCore.QObject):
 			self.importProgressWidget.show()
 			
 		else:
-			print '\t[-] No file chosen..'	
+			logger.info('\t[-] No file chosen..')
 
 	###
 
@@ -445,7 +445,7 @@ class View(QtCore.QObject):
 			self.settingsWidget.hide()
 
 	def cancelSettings(self):
-		print 'DEBUG: cancel button pressed'							# LEO: we can use this later to test ESC button once implemented.
+		logger.info('DEBUG: cancel button pressed')							# LEO: we can use this later to test ESC button once implemented.
 		self.settingsWidget.hide()
 		self.controller.cancelSettings()
 		
@@ -460,7 +460,7 @@ class View(QtCore.QObject):
 	def appExit(self):
 		if self.dealWithCurrentProject(True):							# the parameter indicates that we are exiting the application
 			self.closeProject()
-			print '[+] Exiting application..'
+			logger.info('[+] Exiting application..')
 			sys.exit(0)
 
 	### TABLE ACTIONS ###
@@ -1363,7 +1363,7 @@ class View(QtCore.QObject):
 				if reply == QtGui.QMessageBox.No:
 					return
 				else:
-					print 'Adding host to scope here!!'
+					logger.info('Adding host to scope here!!')
 					self.controller.addHosts(str(bWidget.ipTextinput.text()), False, False)
 			
 			bWidget.validationLabel.hide()
