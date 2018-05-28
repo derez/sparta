@@ -1,5 +1,0 @@
-# Nmap 7.70 scan initiated Fri May 25 22:02:17 2018 as: nmap -Pn -sV -sC -O -p- -T4 -vvvvv -oA /tmp/sparta-BP8eAy-running/nmap/20180525220217-nmapfulltcp-10.11.1.5 10.11.1.5
-# Ports scanned: TCP(65535;1-65535) UDP(0;) SCTP(0;) PROTOCOLS(0;)
-Host: 10.11.1.5 ()	Status: Up
-Host: 10.11.1.5 ()	Ports: 135/open/tcp//msrpc//Microsoft Windows RPC/, 139/open/tcp//netbios-ssn//Microsoft Windows netbios-ssn/, 445/open/tcp//microsoft-ds//Windows XP microsoft-ds/, 1025/open/tcp//msrpc//Microsoft Windows RPC/, 3389/open/tcp//ms-wbt-server?///	Ignored State: closed (65530)	OS: Microsoft Windows XP	Seq Index: 137	IP ID Seq: Incremental
-# Nmap done at Fri May 25 22:10:17 2018 -- 1 IP address (1 host up) scanned in 479.35 seconds

@@ -1,4 +1,0 @@
-# Nmap 7.70 scan initiated Fri May 25 21:44:01 2018 as: nmap -T4 -sV -n -sSU -p T:23,21,110,111,2049,3389,8080,U:500,5060 -oA /tmp/sparta-BP8eAy-running/nmap/20180525214401-nmapstage3 10.11.1.5
-Host: 10.11.1.5 ()	Status: Up
-Host: 10.11.1.5 ()	Ports: 21/closed/tcp//ftp///, 23/closed/tcp//telnet///, 110/closed/tcp//pop3///, 111/closed/tcp//rpcbind///, 2049/closed/tcp//nfs///, 3389/open/tcp//tcpwrapped///, 8080/closed/tcp//http-proxy///, 500/closed/udp//isakmp///, 5060/closed/udp//sip///
-# Nmap done at Fri May 25 21:44:02 2018 -- 1 IP address (1 host up) scanned in 1.35 seconds

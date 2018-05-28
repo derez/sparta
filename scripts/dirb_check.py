@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# written to work with sparta scanner
+# tuned to work with sparta scanner
 
 import sys
 import os
@@ -42,7 +42,7 @@ def command_line_interface():
 
         print('[*] Starting dirb scan for {!s}'.format(options.target))
         print('[*] Output written to {!s}'.format(options.output))
-        #outfile = os.path.join(options.output'{0!s}_dirb_{1!s}'.format(name, filename))
+
         DIRBSCAN = 'dirb {0!s} {1!s} -o {2!s} -S -r -l'.format(options.target, dirb_wordlist, options.output)
         try:
             results = subprocess.check_output(DIRBSCAN, shell=True)

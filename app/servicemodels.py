@@ -101,7 +101,7 @@ class ServicesTableModel(QtCore.QAbstractTableModel):					# needs to inherit fro
 
 	def sort(self, Ncol, order):										# sort function called when the user clicks on a header
 		
-		self.emit(SIGNAL("layoutAboutToBeChanged()"))
+		self.emit(QtCore.SIGNAL("layoutAboutToBeChanged()"))
 		array = []
 		
 		if Ncol == 0:													# if sorting by ip (and by default)
@@ -143,10 +143,10 @@ class ServicesTableModel(QtCore.QAbstractTableModel):					# needs to inherit fro
 
 		sortArrayWithArray(array, self.__services)						# sort the services based on the values in the array
 		
-		if order == Qt.AscendingOrder:									# reverse if needed
+		if order == QtCore.Qt.AscendingOrder:									# reverse if needed
 			self.__services.reverse()	
 			
-		self.emit(SIGNAL("layoutChanged()"))							# update the UI (built-in signal)
+		self.emit(QtCore.SIGNAL("layoutChanged()"))							# update the UI (built-in signal)
 
 	### getter functions ###
 	
@@ -204,7 +204,7 @@ class ServiceNamesTableModel(QtCore.QAbstractTableModel):
 
 	def sort(self, Ncol, order):										# sort function called when the user clicks on a header
 		
-		self.emit(SIGNAL("layoutAboutToBeChanged()"))
+		self.emit(QtCore.SIGNAL("layoutAboutToBeChanged()"))
 		array = []
 		
 		if Ncol == 0:													# if sorting by service name (and by default)
@@ -213,10 +213,10 @@ class ServiceNamesTableModel(QtCore.QAbstractTableModel):
 
 		sortArrayWithArray(array, self.__serviceNames)					# sort the services based on the values in the array
 
-		if order == Qt.AscendingOrder:									# reverse if needed
+		if order == QtCore.Qt.AscendingOrder:									# reverse if needed
 			self.__serviceNames.reverse()	
 			
-		self.emit(SIGNAL("layoutChanged()"))							# update the UI (built-in signal)
+		self.emit(QtCore.SIGNAL("layoutChanged()"))							# update the UI (built-in signal)
 
 	### getter functions ###
 

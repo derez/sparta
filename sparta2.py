@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*
-#!/usr/bin/env python
+
 
 '''
 SPARTA - Network Infrastructure Penetration Testing Tool (http://sparta.secforce.com)

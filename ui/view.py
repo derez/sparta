@@ -14,7 +14,8 @@ Copyright (c) 2015 SECFORCE (Antonio Quina and Leonidas Stavliotis)
 import sys, os, ntpath, signal, re										# for file operations, to kill processes and for regex
 
 try:
-	from PyQt4.QtCore import *												# for filters dialog
+	from PyQt4.QtCore import *	
+	from PyQt4 import QtGui										# for filters dialog
 except ImportError:
 	print("[-] Import failed. PyQt4 library not found. \nTry installing it with: apt install python-qt4")
 
@@ -122,10 +123,10 @@ class View(QtCore.QObject):
 
 		self.ui.ServicesTabWidget.setTabsClosable(True)					# hide the close button (cross) from the fixed tabs
 
-		self.ui.ServicesTabWidget.tabBar().setTabButton(0, QTabBar.RightSide, None)
-		self.ui.ServicesTabWidget.tabBar().setTabButton(1, QTabBar.RightSide, None)
-		self.ui.ServicesTabWidget.tabBar().setTabButton(2, QTabBar.RightSide, None)
-		self.ui.ServicesTabWidget.tabBar().setTabButton(3, QTabBar.RightSide, None)
+		self.ui.ServicesTabWidget.tabBar().setTabButton(0, QtGui.QTabBar.RightSide, None)
+		self.ui.ServicesTabWidget.tabBar().setTabButton(1, QtGui.QTabBar.RightSide, None)
+		self.ui.ServicesTabWidget.tabBar().setTabButton(2, QtGui.QTabBar.RightSide, None)
+		self.ui.ServicesTabWidget.tabBar().setTabButton(3, QtGui.QTabBar.RightSide, None)
 
 		self.resetBruteTabs()											# clear brute tabs (if any) and create default brute tab
 		self.displayToolPanel(False)
@@ -613,10 +614,10 @@ class View(QtCore.QObject):
 				self.ui.ServicesTabWidget.insertTab(1,self.ui.ScriptsTab,("Scripts"))
 				self.ui.ServicesTabWidget.insertTab(2,self.ui.InformationTab,("Information"))
 				self.ui.ServicesTabWidget.insertTab(3,self.ui.NotesTab,("Notes"))
-				self.ui.ServicesTabWidget.tabBar().setTabButton(0, QTabBar.RightSide, None)
-				self.ui.ServicesTabWidget.tabBar().setTabButton(1, QTabBar.RightSide, None)
-				self.ui.ServicesTabWidget.tabBar().setTabButton(2, QTabBar.RightSide, None)
-				self.ui.ServicesTabWidget.tabBar().setTabButton(3, QTabBar.RightSide, None)
+				self.ui.ServicesTabWidget.tabBar().setTabButton(0, QtGui.QTabBar.RightSide, None)
+				self.ui.ServicesTabWidget.tabBar().setTabButton(1, QtGui.QTabBar.RightSide, None)
+				self.ui.ServicesTabWidget.tabBar().setTabButton(2, QtGui.QTabBar.RightSide, None)
+				self.ui.ServicesTabWidget.tabBar().setTabButton(3, QtGui.QTabBar.RightSide, None)
 
 				self.restoreToolTabWidget()
 				###

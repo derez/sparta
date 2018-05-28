@@ -12,7 +12,8 @@ Copyright (c) 2015 SECFORCE (Antonio Quina and Leonidas Stavliotis)
 
 import sys, os, ntpath, signal, re, subprocess 							# for file operations, to kill processes, for regex, for subprocesses
 import Queue
-from PyQt4.QtGui import *												# for filters dialog
+from PyQt4 import QtGui, QtCore
+from PyQt4.QtCore import QObject
 from app.logic import *
 from app.auxiliary import *
 from app.settings import *
@@ -62,12 +63,12 @@ class Controller():
 		self.browser = BrowserOpener()									# browser opener object (different thread)
 
 	def initTimers(self):												# these timers are used to prevent from updating the UI several times within a short time period - which freezes the UI
-		self.updateUITimer = QTimer()
+		self.updateUITimer = QtCore.QTimer()
 		self.updateUITimer.setSingleShot(True)
 		self.updateUITimer.timeout.connect(self.view.updateProcessesTableView)
 		self.updateUITimer.timeout.connect(self.view.updateToolsTableView)
 		
-		self.updateUI2Timer = QTimer()
+		self.updateUI2Timer = QtCore.QTimer()
 		self.updateUI2Timer.setSingleShot(True)
 		self.updateUI2Timer.timeout.connect(self.view.updateInterface)
 
@@ -200,8 +201,8 @@ class Controller():
 
 	def getContextMenuForHost(self, isChecked, showAll=True):			# showAll exists because in some cases we only want to show host tools excluding portscans and 'mark as checked'
 		
-		menu = QMenu()
-		self.nmapSubMenu = QMenu('Portscan')			
+		menu = QtGui.QMenu()
+		self.nmapSubMenu = QtGui.QMenu('Portscan')			
 		actions = []
 				
 		for a in self.settings.hostActions:
@@ -265,7 +266,7 @@ class Controller():
 		
 	def getContextMenuForServiceName(self, serviceName='*', menu=None):
 		if menu == None:												# if no menu was given, create a new one
-			menu = QMenu()
+			menu = QtGui.QMenu()
 
 		if serviceName == '*' or serviceName in self.settings.general_web_services.split(","):
 			menu.addAction("Open in browser")
@@ -322,7 +323,7 @@ class Controller():
 
 	def getContextMenuForPort(self, serviceName='*'):
 
-		menu = QMenu()
+		menu = QtGui.QMenu()
 
 		modifiers = QtGui.QApplication.keyboardModifiers()				# if the user pressed SHIFT+Right-click show full menu
 		if modifiers == QtCore.Qt.ShiftModifier:
@@ -368,7 +369,7 @@ class Controller():
 		self.handleServiceNameAction(targets, actions, action, restoring)
 
 	def getContextMenuForProcess(self):		
-		menu = QMenu()
+		menu = QtGui.QMenu()
 		killAction = menu.addAction("Kill")
 		clearAction = menu.addAction("Clear")
 		return menu
@@ -501,7 +502,7 @@ class Controller():
 	def runCommand(self, name, tabtitle, hostip, port, protocol, command, starttime, outputfile, textbox, discovery=True, stage=0, stop=False):
 		self.logic.createFolderForTool(name)							# create folder for tool if necessary
 		qProcess = MyQProcess(name, tabtitle, hostip, port, protocol, command, starttime, outputfile, textbox)
-		textbox.setProperty('dbId', QVariant(str(self.logic.addProcessToDB(qProcess)))) # database id for the process is stored so that we can retrieve the widget later (in the tools tab)
+		textbox.setProperty('dbId', QtCore.QVariant(str(self.logic.addProcessToDB(qProcess)))) # database id for the process is stored so that we can retrieve the widget later (in the tools tab)
 		logger.debug('[+] Queuing: {!s}'.format(command))
 		self.fastProcessQueue.put(qProcess)
 		qProcess.display.appendPlainText('The process is queued and will start as soon as possible.')
@@ -512,8 +513,8 @@ class Controller():
 		self.updateUITimer.stop()										# update the processes table
 		self.updateUITimer.start(900)
 																		# while the process is running, when there's output to read, display it in the GUI
-		QObject.connect(qProcess, SIGNAL("readyReadStandardOutput()"), qProcess, SLOT("readStdOutput()"))
-		QObject.connect(qProcess, SIGNAL("readyReadStandardError()"), qProcess, SLOT("readStdOutput()"))
+		QObject.connect(qProcess, QtCore.SIGNAL("readyReadStandardOutput()"), qProcess, QtCore.SLOT("readStdOutput()"))
+		QObject.connect(qProcess, QtCore.SIGNAL("readyReadStandardError()"), qProcess, QtCore.SLOT("readStdOutput()"))
 																		# when the process is finished do this
 		qProcess.sigHydra.connect(self.handleHydraFindings)
 		qProcess.finished.connect(lambda: self.processFinished(qProcess))
@@ -566,7 +567,7 @@ class Controller():
 	def screenshotFinished(self, ip, port, filename):
 		dbId = self.logic.addScreenshotToDB(str(ip),str(port),str(filename))
 		imageviewer = self.view.createNewTabForHost(ip, 'screenshot ('+port+'/tcp)', True, '', str(self.logic.outputfolder)+'/screenshots/'+str(filename))
-		imageviewer.setProperty('dbId', QVariant(str(dbId)))
+		imageviewer.setProperty('dbId', QtCore.QVariant(str(dbId)))
 		self.view.switchTabClick()										# to make sure the screenshot tab appears when it is launched from the host services tab
 		self.updateUITimer.stop()										# update the processes table
 		self.updateUITimer.start(900)
@@ -579,7 +580,6 @@ class Controller():
 	# this function handles everything after a process ends
 	#def processFinished(self, qProcess, crashed=False):
 	def processFinished(self, qProcess):
-		#logger.info('processFinished!!')
 		try:
 			if not self.logic.isKilledProcess(str(qProcess.id)):		# if process was not killed
 				if not qProcess.outputfile == '':
@@ -588,6 +588,7 @@ class Controller():
 					if 'nmap' in qProcess.name:							# if the process was nmap, use the parser to store it
 						if qProcess.exitCode() == 0:					# if the process finished successfully
 							newoutputfile = qProcess.outputfile.replace(self.logic.runningfolder, self.logic.outputfolder)
+							logger.debug('Output file to use: {!s}'.format(newoutputfile))
 							self.nmapImporter.setFilename(str(newoutputfile)+'.xml')
 							self.view.importProgressWidget.reset('Importing nmap..')
 							self.nmapImporter.setOutput(str(qProcess.display.toPlainText()))
@@ -595,7 +596,7 @@ class Controller():
 							if self.view.menuVisible == False:
 								self.view.importProgressWidget.show()
 				
-				logger.info("\t[+] The process is done!")
+				logger.info("[+] The process is done!")
 			
 			self.logic.storeProcessOutputInDB(str(qProcess.id), qProcess.display.toPlainText())
 			
@@ -626,7 +627,7 @@ class Controller():
 		if isNmapImport and self.settings.general_enable_scheduler_on_import == 'False':
 			return
 		if self.settings.general_enable_scheduler == 'True':
-			logger.info('[+] Scheduler started!')
+			logger.info('[*] Scheduler started!')
 			
 			for h in parser.all_hosts():
 				for p in h.all_ports():
@@ -636,12 +637,13 @@ class Controller():
 							self.runToolsFor(s.name, h.ip, p.portId, p.protocol)
 					
 			logger.info('-----------------------------------------------')
-		logger.info('[+] Scheduler ended!')
+		logger.info('[*] Scheduler ended!')
 
 	def runToolsFor(self, service, ip, port, protocol='tcp'):
-		logger.info('\t[+] Running tools for: ' + service + ' on ' + ip + ':' + port)
+		logger.info('[+] Running tools for: ' + service + ' on ' + ip + ':' + port)
 
 		if service.endswith("?"):										# when nmap is not sure it will append a ?, so we need to remove it
+			logger.warning('nmap service ending with ? - {!s}'.format(service))
 			service=service[:-1]
 
 		for tool in self.settings.automatedAttacks:

@@ -142,7 +142,7 @@ class AddHostsDialog(QtGui.QDialog):
 		self.label2.setText('eg: 192.168.1.0/24 10.10.10.10-20 1.2.3.4 ')
 		self.font = QtGui.QFont('Arial', 10)
 		self.label2.setFont(self.font)
-		self.label2.setAlignment(Qt.AlignRight)
+		self.label2.setAlignment(QtCore.Qt.AlignRight)
 		self.spacer = QSpacerItem(15,15)
 		###
 		self.validationLabel = QtGui.QLabel(self)
@@ -448,8 +448,8 @@ class BruteWidget(QtGui.QWidget):
 			#self.display.setStyleSheet("background: rgb(0,0,0)")		# black background
 			#self.display.setTextColor(QtGui.QColor('white'))			# white font
 			p = self.display.palette()
-			p.setColor(QtGui.QPalette.Base, Qt.black)					# black background
-			p.setColor(QtGui.QPalette.Text, Qt.white)					# white font
+			p.setColor(QtGui.QPalette.Base, QtCore.Qt.black)					# black background
+			p.setColor(QtGui.QPalette.Text, QtCore.Qt.white)					# white font
 			self.display.setPalette(p)
 			self.display.setStyleSheet("QMenu { color:black;}") #font-size:18px; width: 150px; color:red; left: 20px;}"); # set the menu font color: black
 		
@@ -569,8 +569,8 @@ class BruteWidget(QtGui.QWidget):
 			#self.display.setStyleSheet("background: rgb(0,0,0)")		# black background
 			#self.display.setTextColor(QtGui.QColor('white'))			# white font
 			p = self.display.palette()
-			p.setColor(QtGui.QPalette.Base, Qt.black)					# black background
-			p.setColor(QtGui.QPalette.Text, Qt.white)					# white font
+			p.setColor(QtGui.QPalette.Base, QtCore.Qt.black)					# black background
+			p.setColor(QtGui.QPalette.Text, QtCore.Qt.white)					# white font
 			self.display.setPalette(p)
 			self.display.setStyleSheet("QMenu { color:black;}") #font-size:18px; width: 150px; color:red; left: 20px;}"); # set the menu font color: black			
 		self.vlayout.addWidget(self.display)

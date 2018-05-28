@@ -1,2 +1,0 @@
-# Hydra v8.6 run at 2018-05-26 00:46:42 on 10.11.1.13 ftp (hydra -s 21 -C ./wordlists/ftp-default-userpass.txt -u -o /tmp/sparta-5jIRRl-running/ftpdefault/20180526004642-ftp-default-10.11.1.13-21.txt -f 10.11.1.13 ftp)
-[21][ftp] host: 10.11.1.13   login: ftp   password: password

@@ -1,4 +1,0 @@
-# Nmap 7.70 scan initiated Fri May 25 22:41:38 2018 as: nmap -T4 -sV -n -sSU -p T:23,21,110,111,2049,3389,8080,U:500,5060 -oA /tmp/sparta-BP8eAy-running/nmap/20180525224138-nmapstage3 10.11.1.14
-Host: 10.11.1.14 ()	Status: Up
-Host: 10.11.1.14 ()	Ports: 21/open/tcp//ftp//Microsoft ftpd/, 23/filtered/tcp//telnet///, 110/filtered/tcp//pop3///, 111/filtered/tcp//rpcbind///, 2049/filtered/tcp//nfs///, 3389/open/tcp//ms-wbt-server?///, 8080/filtered/tcp//http-proxy///, 500/open|filtered/udp//isakmp///, 5060/open|filtered/udp//sip///
-# Nmap done at Fri May 25 22:43:30 2018 -- 1 IP address (1 host up) scanned in 112.43 seconds

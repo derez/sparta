@@ -70,7 +70,7 @@ class ScriptsTableModel(QtCore.QAbstractTableModel):
                     
 
     def sort(self, Ncol, order):
-        self.emit(SIGNAL("layoutAboutToBeChanged()"))
+        self.emit(QtCore.SIGNAL("layoutAboutToBeChanged()"))
         array=[]
         
         if Ncol == 1:            
@@ -82,10 +82,10 @@ class ScriptsTableModel(QtCore.QAbstractTableModel):
 
         sortArrayWithArray(array, self.__scripts)						# sort the services based on the values in the array
 
-        if order == Qt.AscendingOrder:									# reverse if needed
+        if order == QtCore.Qt.AscendingOrder:									# reverse if needed
             self.__scripts.reverse()
             
-        self.emit(SIGNAL("layoutChanged()"))
+        self.emit(QtCore.SIGNAL("layoutChanged()"))
 
     def flags(self, index):												# method that allows views to know how to treat each item, eg: if it should be enabled, editable, selectable etc
         return QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable

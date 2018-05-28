@@ -1,4 +1,0 @@
-# Nmap 7.70 scan initiated Fri May 25 22:43:30 2018 as: nmap -T4 -sV -n -sSU -p T:0-20,24,26-79,81-109,112-134,136,138,140-442,444,446-1432,1434-2048,2050-3305,3307-3388,3390-5431,5433-8079,8081-29999 -oA /tmp/sparta-BP8eAy-running/nmap/20180525224330-nmapstage4 10.11.1.14
-Host: 10.11.1.14 ()	Status: Up
-Host: 10.11.1.14 ()	Ports: 13339/closed/tcp/////	Ignored State: filtered (29981)
-# Nmap done at Fri May 25 23:22:27 2018 -- 1 IP address (1 host up) scanned in 2337.04 seconds

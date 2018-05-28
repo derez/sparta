@@ -109,7 +109,7 @@ class HostsTableModel(QtCore.QAbstractTableModel):
 		if role == QtCore.Qt.FontRole:
 			# if a host is checked strike it out and make it italic
 			if index.column() == 3 and self.__hosts[index.row()]['checked'] == 'True':  
-				checkedFont=QFont()
+				checkedFont=QtGui.QFont()
 				checkedFont.setStrikeOut(True)
 				checkedFont.setItalic(True)
 				return checkedFont
@@ -119,7 +119,7 @@ class HostsTableModel(QtCore.QAbstractTableModel):
 
 	def sort(self, Ncol, order):										# sort function called when the user clicks on a header
 		
-		self.emit(SIGNAL("layoutAboutToBeChanged()"))
+		self.emit(QtCore.SIGNAL("layoutAboutToBeChanged()"))
 		array = []
 		
 		if Ncol == 0 or Ncol == 3:										# if sorting by IP address (and by default)
@@ -156,10 +156,10 @@ class HostsTableModel(QtCore.QAbstractTableModel):
 
 		sortArrayWithArray(array, self.__hosts)							# sort the array of OS
 
-		if order == Qt.AscendingOrder:									# reverse if needed
+		if order == QtCore.Qt.AscendingOrder:									# reverse if needed
 			self.__hosts.reverse()
 
-		self.emit(SIGNAL("layoutChanged()"))							# update the UI (built-in signal)
+		self.emit(QtCore.SIGNAL("layoutChanged()"))							# update the UI (built-in signal)
 
 	### getter functions ###
 

@@ -15,6 +15,7 @@ import os, tempfile, ntpath, shutil										# for creation of temp files and fi
 import subprocess	# for CWD
 from parsers.Parser import *
 from db.database import *
+from db.database import note
 from app.auxiliary import *
 
 import logging

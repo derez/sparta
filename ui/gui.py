@@ -11,7 +11,7 @@ Copyright (c) 2014 SECFORCE (Antonio Quina and Leonidas Stavliotis)
     You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-#from PyQt4 import QtCore, QtGui
+from PyQt4 import QtCore, QtGui
 from ui.dialogs import *	
 
 import logging
@@ -100,7 +100,7 @@ class Ui_MainWindow(object):
 
 		###
 		self.addHostsOverlay.setFont(QtGui.QFont('', 12))
-		self.addHostsOverlay.setAlignment(Qt.AlignHCenter|Qt.AlignVCenter)
+		self.addHostsOverlay.setAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
 		###
 		
 		self.vlayout.addWidget(self.addHostsOverlay)

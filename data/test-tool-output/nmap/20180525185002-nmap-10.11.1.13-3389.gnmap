@@ -1,5 +1,0 @@
-# Nmap 7.70 scan initiated Fri May 25 18:50:02 2018 as: nmap -Pn -sV -sC -vvvvv -p3389 -oA /tmp/sparta-YDx5Dw-running/nmap/20180525185002-nmap-10.11.1.13-3389 10.11.1.13
-# Ports scanned: TCP(1;3389) UDP(0;) SCTP(0;) PROTOCOLS(0;)
-Host: 10.11.1.13 ()	Status: Up
-Host: 10.11.1.13 ()	Ports: 3389/open/tcp//ms-wbt-server?///
-# Nmap done at Fri May 25 18:51:26 2018 -- 1 IP address (1 host up) scanned in 83.73 seconds

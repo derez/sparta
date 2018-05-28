@@ -28,20 +28,20 @@ class Database:
 			self.name = dbfilename
 			self.dbsemaphore = QSemaphore(1)							# to control concurrent write access to db
 			metadata.bind = 'sqlite:///'+dbfilename
-	#		metadata.bind.echo = True									# uncomment to see detailed database logs
+			#metadata.bind.echo = True									# uncomment to see detailed database logs
 			setup_all()
 			create_all()
 		except:
-			logger.info('[-] Could not create database. Please try again.')
+			logger.error('[-] Could not create database. Please try again.')
 
 	def openDB(self, dbfilename):
 		try:
 			self.name = dbfilename
 			metadata.bind = 'sqlite:///'+dbfilename
-	#		metadata.bind.echo = True									# uncomment to see detailed database logs
+			#metadata.bind.echo = True									# uncomment to see detailed database logs
 			setup_all()
 		except:
-			logger.info('[-] Could not open database file. Is the file corrupted?')
+			logger.error('[-] Could not open database file. Is the file corrupted?')
 
 	# this function commits any modified data to the db, ensuring no concurrent write access to the DB (within the same thread)
 	# if you code a thread that writes to the DB, make sure you acquire/release at the beginning/end of the thread (see nmap importer)

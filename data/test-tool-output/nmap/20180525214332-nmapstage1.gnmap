@@ -1,4 +1,0 @@
-# Nmap 7.70 scan initiated Fri May 25 21:43:32 2018 as: nmap -T4 -sV -sSU -p T:22,80,443,445 -oA /tmp/sparta-BP8eAy-running/nmap/20180525214332-nmapstage1 10.11.1.5
-Host: 10.11.1.5 ()	Status: Up
-Host: 10.11.1.5 ()	Ports: 22/closed/tcp//ssh///, 80/closed/tcp//http///, 443/closed/tcp//https///, 445/open/tcp//microsoft-ds//Microsoft Windows XP microsoft-ds/
-# Nmap done at Fri May 25 21:43:39 2018 -- 1 IP address (1 host up) scanned in 7.15 seconds

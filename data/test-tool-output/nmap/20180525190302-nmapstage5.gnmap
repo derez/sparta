@@ -1,4 +1,0 @@
-# Nmap 7.70 scan initiated Fri May 25 19:03:02 2018 as: nmap -Pn -T4 -sV -n -sSU -p T:30000-65535 -oA /tmp/sparta-YDx5Dw-running/nmap/20180525190302-nmapstage5 10.11.1.13
-Host: 10.11.1.13 ()	Status: Up
-Host: 10.11.1.13 ()	Status: Up
-# Nmap done at Fri May 25 20:35:37 2018 -- 1 IP address (1 host up) scanned in 5554.84 seconds

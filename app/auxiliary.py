@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+# -*- coding: utf-8 -*
 
 '''
 SPARTA - Network Infrastructure Penetration Testing Tool (http://sparta.secforce.com)
@@ -13,7 +13,6 @@ Copyright (c) 2015 SECFORCE (Antonio Quina and Leonidas Stavliotis)
 
 import os, sys, urllib2, socket, time, datetime, locale, webbrowser, re	# for webrequests, screenshot timeouts, timestamps, browser stuff and regex
 from PyQt4 import QtGui, QtCore
-from PyQt4.QtCore import *												# for QProcess
 import errno															# temporary for isHttpd
 import subprocess														# for screenshots with cutycapt
 import string															# for input validation
@@ -54,9 +53,9 @@ def isHttp(url):
 		
 	except urllib2.HTTPError as err:
 		logger.error('HTTPError: {!r}'.format(err))
-		reason = str(sys.exc_info()[1].reason)
+		reason = '{!s}'.format(sys.exc_info()[1].reason)
 		if reason == 'Unauthorized' or reason == 'Forbidden':
-    		logger.error('HTTPError reason {!s} so returned True'.format(reason))
+	    		logger.error('HTTPError reason {!s} so returned True'.format(reason))
 			return True
 		return False
 		
@@ -121,7 +120,7 @@ def setTableProperties(table, headersLen, hiddenColumnIndexes = []):
 	for i in hiddenColumnIndexes:										# hide some columns
 		table.setColumnHidden(i, True)
 	
-	table.setContextMenuPolicy(Qt.CustomContextMenu)					# create the right-click context menu
+	table.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)					# create the right-click context menu
 	
 def checkHydraResults(output):
 	usernames = []
@@ -162,20 +161,20 @@ class Wordlist():
 	def setFilename(self, filename):
 		self.filename = filename
 	
-	# adds a word to the wordlist (without duplicates)	
+	# adds a word to the wordlist (without duplicates)
 	def add(self, word):
 		with open(self.filename, 'a') as f:
 			if word not in self.wordlist:
 				logger.debug('[+] Adding {!s} to the wordlist'.format(word))
 				self.wordlist.append(word)
-				f.writeline(word)
+				f.write('{!s}\n'.format(word))
 
 # Custom QProcess class
-class MyQProcess(QProcess):
-	sigHydra = QtCore.pyqtSignal(QObject, list, list, name="hydra") 	# signal to indicate Hydra found stuff
+class MyQProcess(QtCore.QProcess):
+	sigHydra = QtCore.pyqtSignal(QtCore.QObject, list, list, name="hydra") 	# signal to indicate Hydra found stuff
 
 	def __init__(self, name, tabtitle, hostip, port, protocol, command, starttime, outputfile, textbox):
-		QProcess.__init__(self)
+		QtCore.QProcess.__init__(self)
 		self.id	= -1
 		self.name = name
 		self.tabtitle = tabtitle
@@ -187,9 +186,9 @@ class MyQProcess(QProcess):
 		self.outputfile = outputfile
 		self.display = textbox 											# has its own display widget to be able to display its output in the GUI
 
-	@pyqtSlot()															# this slot allows the process to append its output to the display widget
+	@QtCore.pyqtSlot()															# this slot allows the process to append its output to the display widget
 	def readStdOutput(self):
-		output = QString(self.readAllStandardOutput())
+		output = QtCore.QString(self.readAllStandardOutput())
 		#self.display.appendPlainText(unicode(output, 'utf-8').strip())
 		self.display.appendPlainText(unicode(output).strip())
 
@@ -198,7 +197,7 @@ class MyQProcess(QProcess):
 			if found:													# send the brutewidget object along with lists of found usernames/passwords
 				self.sigHydra.emit(self.display.parentWidget(), userlist, passlist)
 			
-		stderror = QString(self.readAllStandardError())
+		stderror = QtCore.QString(self.readAllStandardError())
 
 		if len(stderror) > 0:
 			#self.display.appendPlainText(unicode(stderror, 'utf-8').strip())	# append standard error too
